@@ -25,9 +25,9 @@ const ButtonText = styled.h3`
     padding: 22px 0px 125px 0px;
 `;
 
-const AddNewWorklogBtn = () => {
+const AddNewWorklogBtn = ({openModal}) => {
   return (
-    <ButtonWrapper>
+    <ButtonWrapper onClick={openModal}>
       <ButtonIcon>&#43;</ButtonIcon>
       <ButtonText>New Worklog</ButtonText>
     </ButtonWrapper>
