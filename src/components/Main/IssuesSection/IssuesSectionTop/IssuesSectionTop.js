@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import IssuesDatePicker from "./IssuesDatePicker/IssuesDatePicker";
 import IssuesSortingLinks from "./IssuesSortingLinks/IssuesSortingLinks"
-
 export const IssuesSectionTopContainer = styled.div`
   position: relative;
   display: flex;

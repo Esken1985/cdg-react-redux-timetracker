@@ -15,6 +15,7 @@ const DropdownDots = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 10px 0px 0px 0px;
+    cursor: pointer;
 `;
 const DropdownDot = styled.span`
     display: inline-block;
@@ -29,11 +30,11 @@ const DropdownDot = styled.span`
 `;
 
 
-const AddNewWorklogTop = () => {
+const AddNewWorklogTop = ({drop, hide, isDropped}) => {
     return (
         <FlexWrapper>
             <Title>Time tracking</Title>
-            <DropdownDots>
+            <DropdownDots onClick={drop}>
                 <DropdownDot></DropdownDot>
                 <DropdownDot></DropdownDot>
                 <DropdownDot></DropdownDot>

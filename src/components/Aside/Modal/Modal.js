@@ -65,13 +65,7 @@ const TimeLine = styled.div`
   height: 54px;
   margin: 49px auto 29px;
 `;
-const TimeBar = styled.div`
-  width: 100%;
-  max-width: 543px;
-  height: 10px;
-  background-color: #f0f3f5;
-  border-radius: 10px;
-`;
+
 
 const Modal = ({ isShown, close }) => {
   return ReactDOM.createPortal(
@@ -84,8 +78,7 @@ const Modal = ({ isShown, close }) => {
           <ModalContainer>
             <ModalContent>
               <TimeLine>
-                <TimeBar></TimeBar>
-                {/* <TimeDisplay></TimeDisplay> */}
+               
               </TimeLine>
               <ModalForm />
             </ModalContent>

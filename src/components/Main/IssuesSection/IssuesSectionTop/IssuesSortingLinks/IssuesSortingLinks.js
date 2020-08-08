@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const IssuesSortingLinksContainer = styled.div`
@@ -34,13 +34,12 @@ const IssuesSortingLink = styled.div`
 
 const IssuesSortingLinks = () => {
   const [linkState, setState] = useState({
-    activeLink: null,
+    activeLink: "",
     links: [
       { id: 1, text: "All" },
       { id: 2, text: "Favorites" },
     ],
   });
-
   function toggleActive(index) {
     setState({ ...linkState, activeLink: linkState.links[index] });
   }

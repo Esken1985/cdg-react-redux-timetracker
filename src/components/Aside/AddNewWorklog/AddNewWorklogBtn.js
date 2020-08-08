@@ -27,8 +27,8 @@ const ButtonText = styled.h3`
 
 const AddNewWorklogBtn = ({openModal}) => {
   return (
-    <ButtonWrapper onClick={openModal}>
-      <ButtonIcon>&#43;</ButtonIcon>
+    <ButtonWrapper>
+      <ButtonIcon onClick={openModal}>&#43;</ButtonIcon>
       <ButtonText>New Worklog</ButtonText>
     </ButtonWrapper>
   );
