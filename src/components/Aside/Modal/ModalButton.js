@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = styled.div`
+const Button = styled.button`
     width: 45px;
     height: 45px;
     background-color: #F9FAFC;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
+    align-items: center;
         &:first-child{
             margin-right: 27px;
         }
@@ -15,7 +14,7 @@ const Button = styled.div`
 
 const ModalButton = (props) => {
     return (
-        <Button onClick={props.close}>
+        <Button onClick={props.close} type={props.type}>
             {props.children}
         </Button>
     )

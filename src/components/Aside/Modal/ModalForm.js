@@ -1,5 +1,11 @@
 import React, { useState } from "react";
+import {connect} from "react-redux";
+import {createIssue} from "../../../redux/actions/actionCreators"
+import uuid from "react-uuid";
 import styled from "styled-components";
+import ModalButton from "./ModalButton.js";
+import acceptbtn from "../../../assets/acceptbtn.svg";
+import cancelbtn from "../../../assets/cancelbtn.svg";
 
 const ModalFormBox = styled.form`
   margin-bottom: 44px;
@@ -24,40 +30,76 @@ const Input = styled.input`
     color: rgb(196, 202, 203, 0.5);
   }
 `;
+const ModalButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+`;
 
-const ModalForm = () => {
-  const [worklogname, setWorklogname] = useState("");
-  const [issue, setIssue] = useState("");
 
-  const onWorklognameChange = (e) => {
-    setWorklogname(e.target.value);
-  };
-  const onIssueChange = (e) => {
-    setIssue(e.target.value);
-  };
+const ModalForm = ({close, createIssue}) => {
+  const [inputState, setState] = useState({
+    worklogname: "",
+    issuename: "",
+    date: "",
+    time: ""
+  })
+
+  const inputChangeHandler = event => {
+    event.persist()
+    setState(prev => ({...prev, ...{
+      [event.target.name]: event.target.value
+    }}))
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    const {worklogname, issuename} = inputState
+    const newIssue = {
+      worklogname, issuename, date: Date.now(), timefrom: "9:00", timeto: "10:00", duration: "01:00:00", id: uuid()
+    }
+    createIssue(newIssue)
+    close()
+  }
 
   return (
-    <ModalFormBox>
+    <ModalFormBox onSubmit={submitHandler}>
       <InputBox>
-        <InputLabel htmlFor="">Worklog Name</InputLabel>
+        <InputLabel htmlFor="worklogname">Worklog Name</InputLabel>
         <Input
           type="text"
+          id="worklogname"
+          name="worklogname"
           placeholder="Enter the worklog name"
-          value={worklogname}
-          onChange={onWorklognameChange}
+          value={inputState.worklogname}
+          onChange={inputChangeHandler}
         />
       </InputBox>
       <InputBox>
-        <InputLabel htmlFor="">Issue</InputLabel>
+        <InputLabel htmlFor="issue">Issue</InputLabel>
         <Input
           type="text"
+          id="issuename"
+          name="issuename"
           placeholder="Enter the issue name"
-          value={issue}
-          onChange={onIssueChange}
+          value={inputState.issuename}
+          onChange={inputChangeHandler}
         />
       </InputBox>
+      <ModalButtonsContainer>
+              <ModalButton  type="submit">
+                <img src={acceptbtn} alt="accept" />
+              </ModalButton>
+              <ModalButton close={close} type="button">
+                <img src={cancelbtn} alt="cancel" />
+              </ModalButton>
+            </ModalButtonsContainer>
     </ModalFormBox>
   );
 };
 
-export default ModalForm;
+const mapDispatchToProps = {
+  createIssue
+}
+
+export default connect(null, mapDispatchToProps)(ModalForm);

@@ -2,9 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import ModalForm from "./ModalForm.js";
-import ModalButton from "./ModalButton.js";
-import acceptbtn from "../../../assets/acceptbtn.svg";
-import cancelbtn from "../../../assets/cancelbtn.svg";
 
 const ModalDisplay = styled.div`
   display: none;
@@ -41,19 +38,13 @@ const ModalWindow = styled.div`
 `;
 const ModalHeader = styled.h3`
   background-color: #f8f8f8;
-  & h3 {
-    padding: 30px 0px 30px 56px;
-    font-weight: 500;
-    font-size: 18px;
-    color: #1e1e1e;
-  }
+  padding: 30px 0px 30px 56px;
+  font-weight: 500;
+  font-size: 18px;
+  color: #1e1e1e;
 `;
 const ModalContent = styled.div``;
-const ModalButtonsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-bottom: 46px;
-`;
+
 const ModalContainer = styled.div`
   width: 100%;
   max-width: 543px;
@@ -66,30 +57,17 @@ const TimeLine = styled.div`
   margin: 49px auto 29px;
 `;
 
-
 const Modal = ({ isShown, close }) => {
   return ReactDOM.createPortal(
     <ModalDisplay className={isShown ? "shown" : ""}>
       <ModalOverlay>
         <ModalWindow>
-          <ModalHeader>
-            <h3>New Worklog</h3>
-          </ModalHeader>
+          <ModalHeader>New Worklog</ModalHeader>
           <ModalContainer>
             <ModalContent>
-              <TimeLine>
-               
-              </TimeLine>
-              <ModalForm />
+              <TimeLine />
+              <ModalForm close={close} />
             </ModalContent>
-            <ModalButtonsContainer>
-              <ModalButton>
-                <img src={acceptbtn} alt="accept" />
-              </ModalButton>
-              <ModalButton close={close}>
-                <img src={cancelbtn} alt="cancel" />
-              </ModalButton>
-            </ModalButtonsContainer>
           </ModalContainer>
         </ModalWindow>
       </ModalOverlay>
