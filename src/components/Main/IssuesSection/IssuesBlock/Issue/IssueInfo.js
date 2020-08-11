@@ -44,16 +44,17 @@ const IssueTitle = styled.div`
 `;
 
 const IssueInfo = ({issue}) => {
+  const {startTime, endTime, issuename, worklogname} = issue
   return (
     <IssueInfoContainer>
       <IssueTime>
-        <p>{issue.timefrom}</p>
-        <span> - {issue.timeto}</span>
+        <p>{startTime}</p>
+        <span> - {endTime}</span>
       </IssueTime>
       <IssueStateLine />
       <IssueTitle>
-        <p>{issue.issuename}</p>
-        <h3>{issue.worklogname}</h3>
+        <p>{issuename}</p>
+        <h3>{worklogname}</h3>
       </IssueTitle>
     </IssueInfoContainer>
   );

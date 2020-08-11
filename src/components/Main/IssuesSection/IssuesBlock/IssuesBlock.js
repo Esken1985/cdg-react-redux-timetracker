@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {connect} from "react-redux"
 import IssuesBlockTop from "./IssuesBlockTop";
 import Issue from "../IssuesBlock/Issue/Issue";
+import uuid from "react-uuid";
 
 
 const IssuesBlockWrap = styled.div`
@@ -18,7 +19,7 @@ const IssuesBlock = ({issueDetails}) => {
       {
         !issueDetails.length ?
         <div>No Worklogs</div> : 
-        issueDetails.map(issue => <Issue issue={issue} key={issue} />)
+        issueDetails.map(issue => <Issue issue={issue} key={uuid()} />)
       }
       
     </IssuesBlockWrap>

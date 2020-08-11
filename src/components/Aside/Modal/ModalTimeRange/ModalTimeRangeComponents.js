@@ -20,7 +20,7 @@ const railInnerStyle = {
   transform: "translate(0%, -50%)",
   borderRadius: 4,
   pointerEvents: "none",
-  backgroundColor: "rgb(155,155,155)"
+  backgroundColor: "#F0F3F5"
 };
 
 export function SliderRail({ getRailProps }) {
@@ -52,7 +52,7 @@ export function Handle({
           left: `${percent}%`,
           position: "absolute",
           transform: "translate(-50%, -50%)",
-          WebkitTapHighlightColor: "rgba(0,0,0,0)",
+          WebkitTapHighlightColor: "#FFCC40",
           zIndex: 5,
           width: 24,
           height: 42,
@@ -76,7 +76,7 @@ export function Handle({
           height: 20,
           borderRadius: "50%",
           boxShadow: "1px 1px 1px 1px rgba(0, 0, 0, 0.3)",
-          backgroundColor: disabled ? "#666" : "#333"
+          backgroundColor: disabled ? "#666" : "#FFCC40"
         }}
       />
     </Fragment>
@@ -109,7 +109,7 @@ export function Track({ source, target, getTrackProps, disabled }) {
         transform: "translate(0%, -50%)",
         height: 8,
         zIndex: 1,
-        backgroundColor: disabled ? "#999" : "#444",
+        backgroundColor: disabled ? "#999" : "#FFCC40",
         borderRadius: 4,
         cursor: "pointer",
         left: `${source.percent}%`,

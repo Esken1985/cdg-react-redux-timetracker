@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import {connect} from "react-redux";
 import {createIssue} from "../../../redux/actions/actionCreators"
 import uuid from "react-uuid";
+import { addHours, startOfToday, format, intervalToDuration } from "date-fns";
 import styled from "styled-components";
 import ModalButton from "./ModalButton.js";
+import ModalTimeRange from "./ModalTimeRange/ModalTimeRange.js";
 import acceptbtn from "../../../assets/acceptbtn.svg";
 import cancelbtn from "../../../assets/cancelbtn.svg";
 
@@ -37,13 +39,27 @@ const ModalButtonsContainer = styled.div`
 `;
 
 
+const today = startOfToday();
+const from = addHours(today, 7);
+const to = addHours(today, 19);
+const startTime = from;
+const endTime = to;
+
 const ModalForm = ({close, createIssue}) => {
   const [inputState, setState] = useState({
     worklogname: "",
-    issuename: "",
-    date: "",
-    time: ""
+    issuename: ""
   })
+  const [timeRangeValues, setTimeRangeValues] = useState({
+    values: [startTime, endTime]
+  })
+  
+
+  function updateValues (values) {
+    setTimeRangeValues({
+      values
+    });
+  };
 
   const inputChangeHandler = event => {
     event.persist()
@@ -55,8 +71,17 @@ const ModalForm = ({close, createIssue}) => {
   const submitHandler = (e) => {
     e.preventDefault()
     const {worklogname, issuename} = inputState
+    const startTime = timeRangeValues.values[0]
+    const endTime = timeRangeValues.values[1]
     const newIssue = {
-      worklogname, issuename, date: Date.now(), timefrom: "9:00", timeto: "10:00", duration: "01:00:00", id: uuid()
+      worklogname, 
+      issuename, 
+      date: new Date(), 
+      startTime: format(startTime, "HH:mm"), 
+      endTime: format(endTime, "HH:mm"), 
+      duration,
+      id: uuid()
+
     }
     createIssue(newIssue)
     close()
@@ -64,6 +89,7 @@ const ModalForm = ({close, createIssue}) => {
 
   return (
     <ModalFormBox onSubmit={submitHandler}>
+      <ModalTimeRange values={timeRangeValues.values} updateValues={updateValues} />
       <InputBox>
         <InputLabel htmlFor="worklogname">Worklog Name</InputLabel>
         <Input

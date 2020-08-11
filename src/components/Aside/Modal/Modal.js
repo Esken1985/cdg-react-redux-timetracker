@@ -42,19 +42,13 @@ const ModalHeader = styled.h3`
   font-weight: 500;
   font-size: 18px;
   color: #1e1e1e;
+  margin-bottom: 29px;
 `;
 const ModalContent = styled.div``;
-
 const ModalContainer = styled.div`
   width: 100%;
   max-width: 543px;
   margin: 0 auto;
-`;
-const TimeLine = styled.div`
-  width: 100%;
-  max-width: 543px;
-  height: 54px;
-  margin: 49px auto 29px;
 `;
 
 const Modal = ({ isShown, close }) => {
@@ -65,7 +59,6 @@ const Modal = ({ isShown, close }) => {
           <ModalHeader>New Worklog</ModalHeader>
           <ModalContainer>
             <ModalContent>
-              <TimeLine />
               <ModalForm close={close} />
             </ModalContent>
           </ModalContainer>
