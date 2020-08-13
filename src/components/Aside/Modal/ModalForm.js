@@ -11,6 +11,7 @@ import cancelbtn from "../../../assets/cancelbtn.svg";
 
 const ModalFormBox = styled.form`
   margin-bottom: 44px;
+  position: relative;
 `;
 const InputBox = styled.div`
   &:first-child {
@@ -27,6 +28,8 @@ const Input = styled.input`
   border-bottom: 1px solid #e9ecf2;
   max-width: inherit;
   width: 100%;
+  height: 31px;
+  margin-bottom: 22px;
   &::-webkit-input-placeholder {
     font-size: 12px;
     color: rgb(196, 202, 203, 0.5);
@@ -35,7 +38,7 @@ const Input = styled.input`
 const ModalButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 44px;
+  margin-top: 40px;
 `;
 
 
@@ -45,7 +48,7 @@ const to = addHours(today, 19);
 const startTime = from;
 const endTime = to;
 
-const ModalForm = ({close, createIssue}) => {
+const ModalForm = ({close, createIssue, startStopwatch}) => {
   const [inputState, setState] = useState({
     worklogname: "",
     issuename: ""
@@ -53,7 +56,22 @@ const ModalForm = ({close, createIssue}) => {
   const [timeRangeValues, setTimeRangeValues] = useState({
     values: [startTime, endTime]
   })
+
+  const startTimeInMS = timeRangeValues.values[0]
+  const endTimeInMS = timeRangeValues.values[1]
+  const interval = endTimeInMS - startTimeInMS
+
+  function msToTime(interval) {
+     let seconds = Math.floor((interval / 1000) % 60)
+     let minutes = Math.floor((interval / (1000 * 60)) % 60)
+     let  hours = Math.floor((interval / (1000 * 60 * 60)) % 24);
   
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+  
+    return hours + ":" + minutes + ":" + seconds;
+  }
 
   function updateValues (values) {
     setTimeRangeValues({
@@ -73,6 +91,9 @@ const ModalForm = ({close, createIssue}) => {
     const {worklogname, issuename} = inputState
     const startTime = timeRangeValues.values[0]
     const endTime = timeRangeValues.values[1]
+    let duration = msToTime(interval)
+    
+
     const newIssue = {
       worklogname, 
       issuename, 
@@ -85,7 +106,9 @@ const ModalForm = ({close, createIssue}) => {
     }
     createIssue(newIssue)
     close()
+    startStopwatch()
   }
+  
 
   return (
     <ModalFormBox onSubmit={submitHandler}>

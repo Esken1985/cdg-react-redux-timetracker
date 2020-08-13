@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import dwnldbtn from "../../../../assets/dwnldbtn.svg";
+import { format } from "date-fns";
 
 const IssuesBlockTopContainer = styled.div`
   display: flex;
@@ -55,7 +56,7 @@ const TotalHours = styled.div`
     border-radius: 6px;
   }
   & progress::-webkit-progress-value {
-    background-color: #FFCC40;
+    background-color: #ffcc40;
     border-radius: 6px;
   }
   & progress::-moz-progress-bar {
@@ -64,11 +65,16 @@ const TotalHours = styled.div`
   }
 `;
 
-const IssuesBlockTop = () => {
+const IssuesBlockTop = ({ issue }) => {
+  const { date } = issue;
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  const months = ["January", "February", "March","April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  const dateWeekday = days[date.getDay()] + "," 
+  const dateMonthDate = months[date.getMonth()] + " " + date.getDate()
   return (
     <IssuesBlockTopContainer>
       <Date>
-        <Day>Wed,</Day> June 10
+        <Day>{dateWeekday}</Day> {dateMonthDate}
       </Date>
       <TotalProgress>
         <TotalHours>

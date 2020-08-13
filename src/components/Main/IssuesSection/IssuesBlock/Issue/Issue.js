@@ -42,10 +42,10 @@ const IssueContainer = styled.div`
 
 const Issue = ({issue}) => {
   return (
-    <IssueContainer>
-      <IssueInfo issue={issue} />
-      <IssueProgress issue={issue} />
-    </IssueContainer>
+      <IssueContainer>
+        <IssueInfo issue={issue} />
+        <IssueProgress issue={issue} />
+      </IssueContainer>
   );
 };
 

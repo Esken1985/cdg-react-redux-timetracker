@@ -42,7 +42,6 @@ const ModalHeader = styled.h3`
   font-weight: 500;
   font-size: 18px;
   color: #1e1e1e;
-  margin-bottom: 29px;
 `;
 const ModalContent = styled.div``;
 const ModalContainer = styled.div`
@@ -51,7 +50,7 @@ const ModalContainer = styled.div`
   margin: 0 auto;
 `;
 
-const Modal = ({ isShown, close }) => {
+const Modal = ({ isShown, close, startStopwatch }) => {
   return ReactDOM.createPortal(
     <ModalDisplay className={isShown ? "shown" : ""}>
       <ModalOverlay>
@@ -59,7 +58,7 @@ const Modal = ({ isShown, close }) => {
           <ModalHeader>New Worklog</ModalHeader>
           <ModalContainer>
             <ModalContent>
-              <ModalForm close={close} />
+              <ModalForm close={close} startStopwatch={startStopwatch} />
             </ModalContent>
           </ModalContainer>
         </ModalWindow>

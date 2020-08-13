@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import {format} from "date-fns"
 
 // *******************************************************
 // RAIL
@@ -61,7 +62,10 @@ export function Handle({
           backgroundColor: "none"
         }}
         {...getHandleProps(id)}
-      />
+      >
+        <div style={{height: 10, width: 1, backgroundColor: "#FFCC40", marginLeft: 12, position: "absolute", top: 37}}></div>
+      </div>
+      
       <div
         role="slider"
         aria-valuemin={min}
@@ -71,6 +75,7 @@ export function Handle({
           left: `${percent}%`,
           position: "absolute",
           transform: "translate(-50%, -50%)",
+          top: 0,
           zIndex: 2,
           width: 20,
           height: 20,
@@ -78,7 +83,12 @@ export function Handle({
           boxShadow: "1px 1px 1px 1px rgba(0, 0, 0, 0.3)",
           backgroundColor: disabled ? "#666" : "#FFCC40"
         }}
-      />
+      >
+          <div style={{ fontFamily: 'Roboto', fontSize: 11, marginTop: 42,}}>
+            {format(value, "HH:mm")}
+          </div>
+      </div>
+      
     </Fragment>
   );
 }
@@ -142,47 +152,47 @@ Track.defaultProps = {
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-export function Tick({ tick, count, format }) {
-  return (
-    <div>
-      <div
-        style={{
-          position: "absolute",
-          marginTop: 14,
-          width: 1,
-          height: 5,
-          backgroundColor: "rgb(200,200,200)",
-          left: `${tick.percent}%`
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          marginTop: 22,
-          fontSize: 10,
-          textAlign: "center",
-          fontFamily: "Arial, san-serif",
-          marginLeft: `${-(100 / count) / 2}%`,
-          width: `${100 / count}%`,
-          left: `${tick.percent}%`
-        }}
-      >
-        {format(tick.value)}
-      </div>
-    </div>
-  );
-}
+// export function Tick({ tick, count, format }) {
+//   return (
+//     <div>
+//       <div
+//         style={{
+//           position: "absolute",
+//           marginTop: 14,
+//           width: 1,
+//           height: 5,
+//           backgroundColor: "rgb(200,200,200)",
+//           left: `${tick.percent}%`
+//         }}
+//       />
+//       <div
+//         style={{
+//           position: "absolute",
+//           marginTop: 22,
+//           fontSize: 10,
+//           textAlign: "center",
+//           fontFamily: "Arial, san-serif",
+//           marginLeft: `${-(100 / count) / 2}%`,
+//           width: `${100 / count}%`,
+//           left: `${tick.percent}%`
+//         }}
+//       >
+//         {format(tick.value)}
+//       </div>
+//     </div>
+//   );
+// }
 
-Tick.propTypes = {
-  tick: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired
-  }).isRequired,
-  count: PropTypes.number.isRequired,
-  format: PropTypes.func.isRequired
-};
+// Tick.propTypes = {
+//   tick: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     value: PropTypes.number.isRequired,
+//     percent: PropTypes.number.isRequired
+//   }).isRequired,
+//   count: PropTypes.number.isRequired,
+//   format: PropTypes.func.isRequired
+// };
 
-Tick.defaultProps = {
-  format: d => d
-};
+// Tick.defaultProps = {
+//   format: d => d
+// };
