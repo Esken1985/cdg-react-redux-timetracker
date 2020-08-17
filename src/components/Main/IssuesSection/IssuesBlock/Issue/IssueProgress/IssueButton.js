@@ -11,6 +11,7 @@ const Button = styled.button`
   height: 38px;
   background-color: #f0f3f5;
   border-radius: 50%;
+  
 `;
 
 const IssueButton = () => {

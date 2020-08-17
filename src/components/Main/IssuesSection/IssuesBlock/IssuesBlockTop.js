@@ -33,7 +33,8 @@ const DownloadBtn = styled.button`
   border-radius: 50%;
   transition: 0.2s;
   &:hover {
-    background-color: #62d2b1;
+    background: #ffffff;
+    box-shadow: 0px 7px 15px rgba(148, 156, 160, 0.13);
   }
 `;
 const TotalHours = styled.div`
@@ -93,7 +94,7 @@ const IssuesBlockTop = ({ issues, date }) => {
       <TotalProgress>
         <TotalHours>
           <p>{totalDuration}</p>
-          <progress value="80" max="100"></progress>
+          <progress value="0" max="100"></progress>
         </TotalHours>
         <DownloadBtn>
           <img src={dwnldbtn} alt="download" />

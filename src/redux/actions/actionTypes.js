@@ -1,1 +1,2 @@
 export const CREATE_ISSUE = "CREATE-ISSUE";
+export const DELETE_ISSUE = "DELETE_ISSUE";

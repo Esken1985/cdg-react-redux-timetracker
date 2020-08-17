@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import {connect} from "react-redux";
+import {deleteIssue} from "../../../../../redux/actions/actionCreators";
 import IssueInfo from "./IssueInfo";
 import Dropdown from '../../../../Aside/AddNewWorklog/Dropdown'
 import IssueProgress from "../Issue/IssueProgress/IssueProgress";
@@ -45,9 +47,12 @@ const DropdownContainer = styled.div`
   right: -37px;
 `;
 
-const Issue = ({ issue, deleteIssue }) => {
+const Issue = ({issue, deleteIssue}) => {
   const [isDropped, setIsDropped] = useState(false);
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
+  const handleDeleteIssue = () => {
+    deleteIssue(issue.id)
+  }
 
   return (
     <IssueContainer>
@@ -56,7 +61,7 @@ const Issue = ({ issue, deleteIssue }) => {
         <IssueProgress issue={issue} />
       </IssueBox>
       <DropdownContainer>
-        <Dropdown isDropped={isDropped} deleteIssue={deleteIssue}/>
+        <Dropdown isDropped={isDropped} deleteIssue={handleDeleteIssue}/>
       </DropdownContainer>
         <MoreDots onClick={handleDropHide}>
           <img src={dot} alt="dot" />
@@ -66,5 +71,8 @@ const Issue = ({ issue, deleteIssue }) => {
   );
 };
 
+const mapDispatchToProps = {
+  deleteIssue
+}
 
-export default Issue;
+export default connect(null, mapDispatchToProps)(Issue);
