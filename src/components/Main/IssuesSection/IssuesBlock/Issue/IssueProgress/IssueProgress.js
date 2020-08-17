@@ -8,6 +8,7 @@ const IssueProgressContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-right: 31px;
+  position: relative;
 `;
 const IssueRunTime = styled.p`
   font-weight: 500;
@@ -16,11 +17,24 @@ const IssueRunTime = styled.p`
   margin-right: 36px;
 `;
 
+function msToTime(duration) {
+  let seconds = Math.floor((duration / 1000) % 60)
+  let minutes = Math.floor((duration / (1000 * 60)) % 60)
+  let  hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+ hours = (hours < 10) ? "0" + hours : hours;
+ minutes = (minutes < 10) ? "0" + minutes : minutes;
+ seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+ return hours + ":" + minutes + ":" + seconds;
+}
+
 const IssueProgress = ({issue}) => {
+  const duration = msToTime(issue.duration)
   return (
     <IssueProgressContainer>
       <IssueProgressBar />
-      <IssueRunTime>{issue.duration}</IssueRunTime>
+      <IssueRunTime>{duration}</IssueRunTime>
       <IssueButton />
     </IssueProgressContainer>
   );

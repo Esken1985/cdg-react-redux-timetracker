@@ -7,9 +7,6 @@ const DropdownBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 15px 30px rgba(216, 226, 232, 0.12);
   border-radius: 10px;
-  position: absolute;
-  top: 22px;
-  right: 0;
   display: none;
   transition: all .2s;
   &.dropped {
@@ -37,7 +34,7 @@ const Link = styled.a`
   margin-bottom: 18px;
 `;
 
-const Dropdown = ({ isDropped }) => {
+const Dropdown = ({isDropped}) => {
   return (
     <DropdownBox className={isDropped ? "dropped" : ""}>
       <DropdownContainer>

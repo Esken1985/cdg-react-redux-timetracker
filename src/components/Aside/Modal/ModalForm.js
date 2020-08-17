@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {connect} from "react-redux";
 import {createIssue} from "../../../redux/actions/actionCreators"
 import uuid from "react-uuid";
-import { addHours, startOfToday, format, intervalToDuration } from "date-fns";
+import { addHours, startOfToday, format } from "date-fns";
 import styled from "styled-components";
 import ModalButton from "./ModalButton.js";
 import ModalTimeRange from "./ModalTimeRange/ModalTimeRange.js";
@@ -53,25 +53,17 @@ const ModalForm = ({close, createIssue, startStopwatch}) => {
     worklogname: "",
     issuename: ""
   })
+
+
+
   const [timeRangeValues, setTimeRangeValues] = useState({
     values: [startTime, endTime]
   })
 
   const startTimeInMS = timeRangeValues.values[0]
   const endTimeInMS = timeRangeValues.values[1]
-  const interval = endTimeInMS - startTimeInMS
+  const duration = endTimeInMS - startTimeInMS
 
-  function msToTime(interval) {
-     let seconds = Math.floor((interval / 1000) % 60)
-     let minutes = Math.floor((interval / (1000 * 60)) % 60)
-     let  hours = Math.floor((interval / (1000 * 60 * 60)) % 24);
-  
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-  
-    return hours + ":" + minutes + ":" + seconds;
-  }
 
   function updateValues (values) {
     setTimeRangeValues({
@@ -91,22 +83,19 @@ const ModalForm = ({close, createIssue, startStopwatch}) => {
     const {worklogname, issuename} = inputState
     const startTime = timeRangeValues.values[0]
     const endTime = timeRangeValues.values[1]
-    let duration = msToTime(interval)
     
-
     const newIssue = {
       worklogname, 
       issuename, 
-      date: new Date(), 
+      date: format(new Date(), "EEE, MMMM dd"), 
       startTime: format(startTime, "HH:mm"), 
       endTime: format(endTime, "HH:mm"), 
       duration,
       id: uuid()
-
     }
     createIssue(newIssue)
     close()
-    startStopwatch()
+    // startStopwatch()
   }
   
 

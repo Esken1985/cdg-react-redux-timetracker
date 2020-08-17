@@ -10,6 +10,10 @@ const Button = styled.button`
         &:first-child{
             margin-right: 27px;
         }
+        &:hover{
+            background: #FFFFFF;
+            box-shadow: 0px 7px 15px rgba(148, 156, 160, 0.13);
+        }
 `;
 
 const ModalButton = (props) => {

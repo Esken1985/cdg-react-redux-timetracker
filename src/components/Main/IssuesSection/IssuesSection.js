@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useMemo} from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { format } from "date-fns";
 import IssuesBlock from "./IssuesBlock/IssuesBlock";
 import IssuesSectionTop from "./IssuesSectionTop/IssuesSectionTop";
-import uuid from "react-uuid";
+import IssuesBlockTop from "./IssuesBlock/IssuesBlockTop";
 
 export const IssuesSectionWrapper = styled.section`
   border-right: 1px solid #e9ecf2;
@@ -16,14 +17,21 @@ const NoIssues = styled.div`
     border-bottom: 1px dashed #E9ECF2;
 `;
 
-function IssuesSection({ issueDetails }) {
+
+function IssuesSection({ issues }) {
+  const date = format(new Date(), "EEE, MMMM dd");
   return (
     <IssuesSectionWrapper>
       <IssuesSectionTop />
-      {!issueDetails.length ? (
+      {
+        useMemo(() =>
+        <IssuesBlockTop issues={issues} date={date}/>
+      , [issues, date])
+      }
+      {!issues.length ? (
         <NoIssues>No Worklogs Today</NoIssues>
       ) : (
-        issueDetails.map((issue) => <IssuesBlock issue={issue} key={uuid()} />)
+        issues.map((issue) => <IssuesBlock issue={issue} key={issue.id} />)
       )}
     </IssuesSectionWrapper>
   );
@@ -31,7 +39,7 @@ function IssuesSection({ issueDetails }) {
 
 const mapStateToProps = (state) => {
   return {
-    issueDetails: state.issues.issues,
+    issues: state.issues.issues,
   };
 };
 

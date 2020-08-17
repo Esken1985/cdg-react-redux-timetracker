@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
+import { Slider, Rail, Handles, Tracks } from "react-compound-slider";
 import styled from 'styled-components'
-import { SliderRail, Handle, Track, Tick } from "./ModalTimeRangeComponents"; // example render components - source below
-import { addHours, startOfToday, format } from "date-fns";
-import { scaleTime } from "d3-scale";
+import { SliderRail, Handle, Track} from "./ModalTimeRangeComponents"; // example render components - source below
+import { addHours, startOfToday} from "date-fns";
 
 const sliderStyle = {
   width: "100%"
@@ -17,9 +16,9 @@ const SliderContainer = styled.div`
 `;
 
 
-function formatTick(ms) {
-  return format(new Date(ms), "HH mm");
-}
+// function formatTick(ms) {
+//   return format(new Date(ms), "HH mm");
+// }
 
 const today = startOfToday();
 const startTime = addHours(today, 7);
@@ -32,10 +31,10 @@ class ModalTimeRange extends Component {
   render() {
   const { values, updateValues  } = this.props;
 
-    const dateTicks = scaleTime()
-      .domain([min, max])
-      .ticks(12)
-      .map(d => +d);
+    // const dateTicks = scaleTime()
+    //   .domain([min, max])
+    //   .ticks(12)
+    //   .map(d => +d);
 
     return (
       <div>  

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import _ from "lodash";
 import dwnldbtn from "../../../../assets/dwnldbtn.svg";
-import { format } from "date-fns";
 
 const IssuesBlockTopContainer = styled.div`
   display: flex;
@@ -65,20 +65,34 @@ const TotalHours = styled.div`
   }
 `;
 
-const IssuesBlockTop = ({ issue }) => {
-  const { date } = issue;
-  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-  const months = ["January", "February", "March","April", "May", "June", "July", "August", "September", "October", "November", "December"]
-  const dateWeekday = days[date.getDay()] + "," 
-  const dateMonthDate = months[date.getMonth()] + " " + date.getDate()
+function msToTime(duration) {
+  let seconds = Math.floor((duration / 1000) % 60);
+  let minutes = Math.floor((duration / (1000 * 60)) % 60);
+  let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  return hours + ":" + minutes + ":" + seconds;
+}
+
+const IssuesBlockTop = ({ issues, date }) => {
+  const durationsArr = [];
+  _.forEach(issues, function (item) {
+    durationsArr.push(item.duration);
+  });
+  const totalDuration = msToTime(_.sum(durationsArr));
+  console.log(totalDuration);
+
   return (
     <IssuesBlockTopContainer>
       <Date>
-        <Day>{dateWeekday}</Day> {dateMonthDate}
+        <Day>{date}</Day>
       </Date>
       <TotalProgress>
         <TotalHours>
-          <p>06:50:00</p>
+          <p>{totalDuration}</p>
           <progress value="80" max="100"></progress>
         </TotalHours>
         <DownloadBtn>
