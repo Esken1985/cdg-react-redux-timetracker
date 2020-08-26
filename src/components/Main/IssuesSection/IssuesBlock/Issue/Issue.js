@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {connect} from "react-redux";
-import {deleteIssue} from "../../../../../redux/actions/actionCreators";
+// import { format } from "date-fns";
+import { connect } from "react-redux";
+import { deleteIssue, cloneIssue, startStopwatch } from "../../../../../redux/actions/actionCreators";
 import IssueInfo from "./IssueInfo";
-import Dropdown from '../../../../Aside/AddNewWorklog/Dropdown'
+import Dropdown from "../../../../Aside/AddNewWorklog/Dropdown";
 import IssueProgress from "../Issue/IssueProgress/IssueProgress";
 import dot from "../../../../../assets/issue-more-dot.svg";
+
 
 const IssueContainer = styled.div`
   display: flex;
@@ -19,21 +21,21 @@ const IssueBox = styled.div`
   padding: 5px 0px 7px 0px;
   border-bottom: 1px dashed #e9ecf2;
   position: relative;
-  &:hover{
+  &:hover {
     background: #ffffff;
     box-shadow: 0px 15px 30px rgba(216, 226, 232, 0.12);
     border-radius: 10px 0 0 10px;
   }
 `;
 const MoreDots = styled.div`
-    /* display: none; */
-    position: absolute;
-    background-color: #3744BD;
-    border-radius: 0 10px 10px 0;
-    right: -37px;
-    width: 37px;
-    height: 88px;
-    padding-top: 34px;
+  /* display: none; */
+  position: absolute;
+  background-color: #3744bd;
+  border-radius: 0 10px 10px 0;
+  right: -37px;
+  width: 37px;
+  height: 88px;
+  padding-top: 34px;
   & img {
     padding-left: 15px;
     &:first-child {
@@ -43,36 +45,47 @@ const MoreDots = styled.div`
 `;
 const DropdownContainer = styled.div`
   position: absolute;
+  z-index: 3;
   top: 91px;
   right: -37px;
 `;
 
-const Issue = ({issue, deleteIssue}) => {
+
+const Issue = ({ issue, deleteIssue, cloneIssue }) => {
   const [isDropped, setIsDropped] = useState(false);
+
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
   const handleDeleteIssue = () => {
-    deleteIssue(issue.id)
-  }
+    deleteIssue(issue.id);
+  };
+  const handleCloneIssue = () => {
+    cloneIssue(issue.id);
+    startStopwatch();
+  };
 
   return (
-    <IssueContainer>
-      <IssueBox>
-        <IssueInfo issue={issue} />
-        <IssueProgress issue={issue} />
-      </IssueBox>
-      <DropdownContainer>
-        <Dropdown isDropped={isDropped} deleteIssue={handleDeleteIssue}/>
-      </DropdownContainer>
+    <> 
+      <IssueContainer>
+        <IssueBox>
+          <IssueInfo issue={issue} />
+          <IssueProgress issue={issue} />
+        </IssueBox>
+        <DropdownContainer>
+          <Dropdown isDropped={isDropped} deleteIssue={handleDeleteIssue} cloneIssue={handleCloneIssue} />
+        </DropdownContainer>
         <MoreDots onClick={handleDropHide}>
           <img src={dot} alt="dot" />
           <img src={dot} alt="dot" />
         </MoreDots>
-    </IssueContainer>
+      </IssueContainer>
+    </>
   );
 };
 
 const mapDispatchToProps = {
-  deleteIssue
-}
+  deleteIssue,
+  cloneIssue, 
+  startStopwatch
+};
 
 export default connect(null, mapDispatchToProps)(Issue);

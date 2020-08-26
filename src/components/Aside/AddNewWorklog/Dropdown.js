@@ -34,12 +34,12 @@ const Link = styled.a`
   margin-bottom: 18px;
 `;
 
-const Dropdown = ({isDropped, deleteIssue}) => {
+const Dropdown = ({isDropped, deleteIssue, cloneIssue}) => {
   return (
     <DropdownBox className={isDropped ? "dropped" : ""}>
       <DropdownContainer>
         <Link href="#">Jira link</Link>
-        <DropdownItem>Duplicate</DropdownItem>
+        <DropdownItem onClick={cloneIssue} >Duplicate</DropdownItem>
         <DropdownItem>Add to favorite</DropdownItem>
         <DropdownItem onClick={deleteIssue} >Delete</DropdownItem>
       </DropdownContainer>

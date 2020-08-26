@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import { issuesReducer } from './issuesReducer';
+import { stopwatchReducer } from './stopwatchReducer';
 
 export function saveToLocalStorage (state) {
     try {
@@ -21,5 +22,9 @@ export function loadFromLocalStorage () {
 }
 
 export const rootReducer = combineReducers({
-    issues: issuesReducer
+    issues: issuesReducer,
+    issuesHeaders: issuesReducer,
+    startTime: stopwatchReducer,
+    endTime: stopwatchReducer,
+    isRunning: stopwatchReducer
 });

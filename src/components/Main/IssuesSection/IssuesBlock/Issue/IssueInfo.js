@@ -42,14 +42,25 @@ const IssueTitle = styled.div`
     color: #1e1e1e;
   }
 `;
+// const IssuesAmount = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 18px;
+//   width: 38px;
+//   height: 38px;
+//   border-radius: 50%;
+//   background-color: #ffffff;
+// `;
 
-const IssueInfo = ({issue}) => {
-  const {startTime, endTime, issuename, worklogname} = issue
+
+const IssueInfo = ({ issue }) => {
+  const { startTime, endTime, issuename, worklogname } = issue;
   return (
     <IssueInfoContainer>
       <IssueTime>
-        <p>{startTime}</p>
-        <span> - {endTime}</span>
+        <p> {startTime} </p> <span> - {endTime} </span> 
+        {/* <IssuesAmount>2</IssuesAmount> */}
       </IssueTime>
       <IssueStateLine />
       <IssueTitle>

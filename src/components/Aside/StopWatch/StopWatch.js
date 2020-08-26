@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components"
+import {connect} from "react-redux"
+import {setWorklogStartTimepoint, setWorklogEndTimepoint} from "../../../redux/actions/actionCreators"
 import stopbtn from "../../../assets/timer-stop.svg";
 import pausebtn from "../../../assets/timer-pause.svg";
-import startbtn from "../../../assets/timer-startbtn.svg"
+import startbtn from "../../../assets/timer-start.svg"
 
 const Stopwatch = styled.div`
     display: flex;
@@ -44,42 +46,58 @@ const StopwatchButton = styled.button`
     align-items: center;
 `;
 
+
+
 class StopWatch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hour: 0, minute: 0, second: 0, isRunning: true };
+    this.state = { 
+      hour: 0, 
+      minute: 0, 
+      second: 0, 
+      isRunning: true
+     };
+     this.handleStopBtnClick = this.handleStopBtnClick.bind(this)
   }
 
+
   componentDidMount() {
+    this.props.setWorklogStartTimepoint()
     this.timerID = setInterval(() => {
-      this.setState((state, props) => {
+      this.setState((state) => {
         return {
-          hour: state.hour == 59 ? state.hour + 1 : state.hour,
-          minute: state.second == 59 ? state.minute + 1 : state.minute,
-          second: state.second == 59 ? 0 : state.second + 1,
+          hour: state.hour === 59 ? state.hour + 1 : state.hour,
+          minute: state.second === 59 ? state.minute + 1 : state.minute,
+          second: state.second === 59 ? 0 : state.second + 1,
         };
       });
     }, 1000);
   }
 
+  handleStopBtnClick = () => {
+    clearInterval(this.timerID);
+    this.setState({isRunning: false})
+    this.props.setWorklogEndTimepoint()
+    this.props.openModal()
+  }
+
   handlePauseStartClick = () => {
     if (this.state.isRunning) {
       clearInterval(this.timerID);
-      this.setState({isRunning : false})
+      this.setState({isRunning: false})
     } else {
       this.setState({isRunning: true})
       this.timerID = setInterval(() => {
-        this.setState((state, props) => {
+        this.setState((state) => {
           return {
-            hour: state.hour == 59 ? state.hour + 1 : state.hour,
-            minute: state.second == 59 ? state.minute + 1 : state.minute,
-            second: state.second == 59 ? 0 : state.second + 1,
+            hour: state.hour === 59 ? state.hour + 1 : state.hour,
+            minute: state.second === 59 ? state.minute + 1 : state.minute,
+            second: state.second === 59 ? 0 : state.second + 1,
           };
         });
       }, 1000);
     }
   };
-
   render() {
     return (
       <Stopwatch>
@@ -91,7 +109,7 @@ class StopWatch extends React.Component {
         {this.state.minute < 10 ? "0" + this.state.minute : this.state.minute}:
         {this.state.second < 10 ? "0" + this.state.second : this.state.second}
         <ButtonsContainer>
-          <StopwatchButton stop >
+          <StopwatchButton stop onClick={this.handleStopBtnClick} >
             <img src={stopbtn} alt="stop" />
           </StopwatchButton>
           <StopwatchButton  onClick={this.handlePauseStartClick}>
@@ -107,5 +125,17 @@ class StopWatch extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    startTime: state.startTime,
+    endTime: state.endTime,
+    isRunning: state.isRunning
+  }
+}
 
-export default StopWatch;
+const mapDispatchToProps = {
+  setWorklogStartTimepoint,
+  setWorklogEndTimepoint,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StopWatch);

@@ -1,25 +1,17 @@
-import {CREATE_ISSUE, DELETE_ISSUE, CLONE_ISSUE, CREATE_ISSUES_HEADER} from '../actions/actionTypes'
+import {CREATE_ISSUE, DELETE_ISSUE, CLONE_ISSUE, CREATE_ISSUES_BLOCK} from '../actions/actionTypes'
 import _ from "lodash"
-import {format} from "date-fns"
-
-const initialDate = format(new Date(), "EEE, MMMM dd")
 
 const initialState = {
     issues: [],
-    issuesHeaders: [{date: initialDate, id: "019283074"}],
-    issuesTimelines: []
+    issuesBlocks: [{date: ""}]
 }
+
 export const issuesReducer = (state = initialState, action) => {
-    console.log(state);
     switch (action.type) {
         case CREATE_ISSUE:
             return {...state, issues: state.issues.concat([action.payload])}
-        case CREATE_ISSUES_HEADER:
-            if(!action.date === state.issuesHeaders.date) 
-            return {
-                ...state, 
-                issuesHeaders: state.issuesHeaders.concat([action.date])
-            }
+        case CREATE_ISSUES_BLOCK:
+            return {...state, issuesBlocks: action.payload !== prevAction.payload ? state.issuesBlocks.concat([action.payload]) : null}
         case DELETE_ISSUE:
             let newIssues = state.issues.filter(issue => {
                 return action.id !== issue.id

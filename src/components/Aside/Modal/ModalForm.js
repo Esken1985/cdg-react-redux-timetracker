@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {connect} from "react-redux";
-import {createIssue} from "../../../redux/actions/actionCreators"
+import {createIssue, createIssuesHeader} from "../../../redux/actions/actionCreators"
 import uuid from "react-uuid";
 import { addHours, startOfToday, format } from "date-fns";
 import styled from "styled-components";
@@ -29,7 +29,6 @@ const Input = styled.input`
   max-width: inherit;
   width: 100%;
   height: 31px;
-  margin-bottom: 22px;
   &::-webkit-input-placeholder {
     font-size: 12px;
     color: rgb(196, 202, 203, 0.5);
@@ -40,7 +39,13 @@ const ModalButtonsContainer = styled.div`
   justify-content: center;
   margin-top: 40px;
 `;
-
+const Error = styled.div`
+  font-size: 10px;
+  color: #E34040;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 22px;
+`;
 
 const today = startOfToday();
 const from = addHours(today, 7);
@@ -48,13 +53,14 @@ const to = addHours(today, 19);
 const startTime = from;
 const endTime = to;
 
-const ModalForm = ({close, createIssue, startStopwatch}) => {
-  const [inputState, setState] = useState({
+const ModalForm = ({close, createIssue, closeStopwatch, createIssuesHeader}) => {
+  const initialInputState = {
     worklogname: "",
-    issuename: ""
-  })
-
-
+    issuename: "",
+    worklognameError: "",
+    issuenameError: ""
+  }
+  const [inputState, setInputState] = useState(initialInputState)
 
   const [timeRangeValues, setTimeRangeValues] = useState({
     values: [startTime, endTime]
@@ -73,9 +79,26 @@ const ModalForm = ({close, createIssue, startStopwatch}) => {
 
   const inputChangeHandler = event => {
     event.persist()
-    setState(prev => ({...prev, ...{
+    setInputState(prev => ({...prev, ...{
       [event.target.name]: event.target.value
     }}))
+  }
+
+  const validate = () => {
+    let worklognameError = ""
+    let issuenameError = ""
+    if(!inputState.worklogname) {
+      worklognameError = "Please, enter worklog name" 
+    }
+    if(!inputState.issuename) {
+      issuenameError = "Please, enter issue name"
+    }
+
+    if(worklognameError || issuenameError) {
+      setInputState({worklognameError, issuenameError});
+      return false
+    }
+    return true
   }
 
   const submitHandler = (e) => {
@@ -83,19 +106,28 @@ const ModalForm = ({close, createIssue, startStopwatch}) => {
     const {worklogname, issuename} = inputState
     const startTime = timeRangeValues.values[0]
     const endTime = timeRangeValues.values[1]
-    
+    const date = format(new Date(), "EEE, MMMM dd")
+    const isValid = validate();
+    const newIssueHeader = {
+      date,
+      id: uuid()
+    }
     const newIssue = {
       worklogname, 
       issuename, 
-      date: format(new Date(), "EEE, MMMM dd"), 
+      date,
       startTime: format(startTime, "HH:mm"), 
       endTime: format(endTime, "HH:mm"), 
       duration,
       id: uuid()
     }
-    createIssue(newIssue)
-    close()
-    // startStopwatch()
+    if(isValid) {
+      createIssue(newIssue)
+      createIssuesHeader(newIssueHeader)
+      close()
+      closeStopwatch()
+      setInputState(initialInputState)
+    }
   }
   
 
@@ -112,6 +144,7 @@ const ModalForm = ({close, createIssue, startStopwatch}) => {
           value={inputState.worklogname}
           onChange={inputChangeHandler}
         />
+        <Error>{inputState.worklognameError}</Error>
       </InputBox>
       <InputBox>
         <InputLabel htmlFor="issue">Issue</InputLabel>
@@ -123,6 +156,7 @@ const ModalForm = ({close, createIssue, startStopwatch}) => {
           value={inputState.issuename}
           onChange={inputChangeHandler}
         />
+        <Error>{inputState.issuenameError}</Error>
       </InputBox>
       <ModalButtonsContainer>
               <ModalButton  type="submit">
@@ -137,7 +171,8 @@ const ModalForm = ({close, createIssue, startStopwatch}) => {
 };
 
 const mapDispatchToProps = {
-  createIssue
+  createIssue,
+  createIssuesHeader
 }
 
 export default connect(null, mapDispatchToProps)(ModalForm);

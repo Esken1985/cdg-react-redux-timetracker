@@ -50,7 +50,7 @@ const ModalContainer = styled.div`
   margin: 0 auto;
 `;
 
-const Modal = ({ isShown, close, startStopwatch }) => {
+const Modal = ({ isShown, close, startStopwatch, closeStopwatch }) => {
   return ReactDOM.createPortal(
     <ModalDisplay className={isShown ? "shown" : ""}>
       <ModalOverlay>
@@ -58,7 +58,7 @@ const Modal = ({ isShown, close, startStopwatch }) => {
           <ModalHeader>New Worklog</ModalHeader>
           <ModalContainer>
             <ModalContent>
-              <ModalForm close={close} startStopwatch={startStopwatch} />
+              <ModalForm close={close} startStopwatch={startStopwatch} closeStopwatch={closeStopwatch} />
             </ModalContent>
           </ModalContainer>
         </ModalWindow>

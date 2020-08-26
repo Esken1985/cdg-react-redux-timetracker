@@ -1,40 +1,29 @@
-import {START_PAUSE_TIMER} from '../actions/actionTypes'
-import {START_TIMER_ON_MOUNT} from '../actions/actionTypes'
+import { SET_WORKLOG_START_TIMEPOINT, SET_WORKLOG_END_TIMEPOINT, START_STOPWATCH, HIDE_STOPWATCH } from '../actions/actionTypes'
 
 const initialState = {
-    hour: 0, 
-    minute: 0, 
-    second: 0, 
+    startTime: "",
+    endTime: "",
     isRunning: true
 }
 
-export const stopwatchReducer = (state = initialState, action) =>{
-    switch (action.type) {
-        case START_PAUSE_TIMER:
-            if (state.isRunning) {
-                clearInterval(timerID);
-                ...state 
-              } else {
-                {isRunning: true}
-                timerID = setInterval(() => {
-                  (state, props) => {
-                    return {
-                      hour: state.hour == 59 ? state.hour + 1 : state.hour,
-                      minute: state.second == 59 ? state.minute + 1 : state.minute,
-                      second: state.second == 59 ? 0 : state.second + 1,
-                    };
-                  };
-                }, 1000);
-              }
-        case START_TIMER_ON_MOUNT:
-            timerID = setInterval(() => {
-                (state, props) => {
-                  return {
-                    hour: state.hour == 59 ? state.hour + 1 : state.hour,
-                    minute: state.second == 59 ? state.minute + 1 : state.minute,
-                    second: state.second == 59 ? 0 : state.second + 1,
-                  };
-                };
-              }, 1000);
+export const stopwatchReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_WORKLOG_START_TIMEPOINT:
+    return {
+      startTime: new Date()
     }
+    case SET_WORKLOG_END_TIMEPOINT:
+    return {
+      endTime: new Date()
+    }
+    case START_STOPWATCH:
+      return {
+        ...state, isRunning: true
+      }
+    case HIDE_STOPWATCH:
+      return {
+        ...state, isRunning: false
+      }
+    default: return state
+  }
 }

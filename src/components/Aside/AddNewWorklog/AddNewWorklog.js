@@ -4,7 +4,7 @@ import AddNewWorklogTop from "./AddNewWorklogTop";
 import AddNewWorklogBtn from "./AddNewWorklogBtn";
 import Modal from "../Modal/Modal";
 import Dropdown from "./Dropdown";
-// import StopWatch from "../StopWatch/StopWatch";
+import StopWatch from "../StopWatch/StopWatch";
 
 const BlockContainer = styled.div`
   position: relative;
@@ -18,30 +18,27 @@ const DropdownContainer = styled.div`
 const AddNewWorklog = () => {
   const [isDropped, setIsDropped] = useState(false);
   const [isModalShown, setModalShown] = useState(false);
-  // const [isStopwatchOn, setStopwatchOn] = useState(false);
+  const [isStopwatchOn, setStopwatchOn] = useState(false);
 
   const closeModalHandler = () => setModalShown(false);
   const openModalHandler = () => setModalShown(true);
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
-  // const startStopwatch = () => setStopwatchOn(true);
-
+  const startStopwatch = () => setStopwatchOn(true);
+  const closeStopwatch = () => setStopwatchOn(false);
   return (
     <BlockContainer>
       <AddNewWorklogTop drop={handleDropHide} isDropped={isDropped} />
       <DropdownContainer>
         <Dropdown isDropped={isDropped} />
-      </DropdownContainer>
-      <AddNewWorklogBtn openModal={openModalHandler} />
-      {/* {
-          isStopwatchOn ? null : <AddNewWorklogBtn openModal={openModalHandler} />
-        } */}
-      {/* {
-          isStopwatchOn ? <StopWatch/> : null
-        } */}
+      </DropdownContainer>  
+      {
+          isStopwatchOn ? <StopWatch  openModal={openModalHandler} /> : <AddNewWorklogBtn startStopwatch={startStopwatch} />
+      }
       <Modal
         isShown={isModalShown}
         close={closeModalHandler}
-        // startStopwatch={startStopwatch}
+        startStopwatch={startStopwatch}
+        closeStopwatch={closeStopwatch}
       />
     </BlockContainer>
   );

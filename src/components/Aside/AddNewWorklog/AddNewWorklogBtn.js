@@ -25,10 +25,10 @@ const ButtonText = styled.h3`
     padding: 22px 0px 125px 0px;
 `;
 
-const AddNewWorklogBtn = ({openModal}) => {
+const AddNewWorklogBtn = ({startStopwatch}) => {
   return (
     <ButtonWrapper>
-      <ButtonIcon onClick={openModal}>&#43;</ButtonIcon>
+      <ButtonIcon onClick={startStopwatch} >&#43;</ButtonIcon>
       <ButtonText>New Worklog</ButtonText>
     </ButtonWrapper>
   );
