@@ -8,6 +8,7 @@ import StopWatch from "../StopWatch/StopWatch";
 
 const BlockContainer = styled.div`
   position: relative;
+  border-bottom: 1px solid #E9ECF2;
 `;
 const DropdownContainer = styled.div`
   position: absolute;
@@ -21,10 +22,11 @@ const AddNewWorklog = () => {
   const [isStopwatchOn, setStopwatchOn] = useState(false);
 
   const closeModalHandler = () => setModalShown(false);
-  const openModalHandler = () => setModalShown(true);
+  const openModalHandler = () =>  setModalShown(true);
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
   const startStopwatch = () => setStopwatchOn(true);
   const closeStopwatch = () => setStopwatchOn(false);
+
   return (
     <BlockContainer>
       <AddNewWorklogTop drop={handleDropHide} isDropped={isDropped} />

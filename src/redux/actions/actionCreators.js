@@ -1,15 +1,15 @@
-import { CREATE_ISSUE, DELETE_ISSUE, SET_WORKLOG_START_TIMEPOINT, SET_WORKLOG_END_TIMEPOINT, CLONE_ISSUE, HIDE_STOPWATCH, START_STOPWATCH, CREATE_ISSUES_HEADER } from "./actionTypes";
+import { CREATE_ISSUE, DELETE_ISSUE, SET_WORKLOG_START_TIMEPOINT, SET_WORKLOG_END_TIMEPOINT, CLONE_ISSUE, HIDE_STOPWATCH, START_STOPWATCH, CREATE_ISSUES_BLOCK } from "./actionTypes";
 
+export function createIssuesBlock (date) {
+    return {
+        type: CREATE_ISSUES_BLOCK,
+        payload: date,
+    }
+} 
 export function createIssue (issue) {
     return {
         type: CREATE_ISSUE,
-        payload: issue
-    }
-}
-export function createIssuesHeader (date) {
-    return {
-        type: CREATE_ISSUES_HEADER,
-        date: date
+        payload: issue, 
     }
 }
 export function deleteIssue (id) {

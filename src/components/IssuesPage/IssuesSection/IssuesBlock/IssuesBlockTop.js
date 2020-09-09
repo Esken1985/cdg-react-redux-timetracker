@@ -78,23 +78,20 @@ function msToTime(duration) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-const IssuesBlockTop = ({ issues, issueHeader }) => {
-  const durationsArr = [];
-  _.forEach(issues, function (item) {
-    if(item.date === issueHeader.date) {
-      durationsArr.push(item.duration);
-    }
+const IssuesBlockTop = ({ issuesBlock, issues }) => {
+  const issuesDurationArr = issues.map((issue) => {
+    if (issuesBlock.blockDate === issue.date) return issue.duration;
   });
-  const totalDuration = msToTime(_.sum(durationsArr));
+  const totalDuration = msToTime(_.sum(issuesDurationArr));
 
   return (
     <IssuesBlockTopContainer>
       <Date>
-        <Day>{issueHeader.date}</Day>
+        <Day>{issuesBlock.blockDate}</Day>
       </Date>
       <TotalProgress>
         <TotalHours>
-          <p>{totalDuration}</p>
+          <p> {totalDuration} </p>
           <progress value="0" max="100"></progress>
         </TotalHours>
         <DownloadBtn>

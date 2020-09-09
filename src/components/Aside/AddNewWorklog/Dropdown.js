@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const DropdownBox = styled.div`
-  width: 169px;
-  height: 192px;
   background: #ffffff;
   box-shadow: 0px 15px 30px rgba(216, 226, 232, 0.12);
   border-radius: 10px;
@@ -14,20 +12,21 @@ const DropdownBox = styled.div`
   }
 `;
 const DropdownContainer = styled.div`
+  padding: 10px 0px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 23px;
   font-size: 16px;
   line-height: 144.2%;
   color: #4f4f4f;
 `;
 const DropdownItem = styled.div`
+  width: 100%;
+  text-align: center;
   cursor: pointer;
-  margin-bottom: 18px;
-  &:last-child{
-    margin-bottom: 0px;
-  }
+  padding: 11px 33px 10px 32px;
+    &:hover{
+      background: #E3F3FF;
+    }
 `;
 const Link = styled.a`
   color: #4f4f4f;
@@ -35,13 +34,14 @@ const Link = styled.a`
 `;
 
 const Dropdown = ({isDropped, deleteIssue, cloneIssue}) => {
+
   return (
     <DropdownBox className={isDropped ? "dropped" : ""}>
       <DropdownContainer>
-        <Link href="#">Jira link</Link>
+        <DropdownItem> <Link href="#">Jira link</Link></DropdownItem>
         <DropdownItem onClick={cloneIssue} >Duplicate</DropdownItem>
         <DropdownItem>Add to favorite</DropdownItem>
-        <DropdownItem onClick={deleteIssue} >Delete</DropdownItem>
+        <DropdownItem onClick={deleteIssue}>Delete</DropdownItem>
       </DropdownContainer>
     </DropdownBox>
   );

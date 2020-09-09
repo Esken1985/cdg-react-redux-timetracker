@@ -33,7 +33,7 @@ const HeaderLinks = () => {
       <StyledLink to="/">
         <Image src={info} alt="info" />
       </StyledLink>
-      <StyledLink to="/">
+      <StyledLink to="/login">
         <Image src={exit} alt="exit" />
       </StyledLink>
       <StyledLink to="/">

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import { format } from "date-fns";
 import { connect } from "react-redux";
-import { deleteIssue, cloneIssue, startStopwatch } from "../../../../../redux/actions/actionCreators";
+import {
+  deleteIssue,
+  cloneIssue,
+  startStopwatch,
+} from "../../../../../redux/actions/actionCreators";
 import IssueInfo from "./IssueInfo";
+import _ from "lodash"
 import Dropdown from "../../../../Aside/AddNewWorklog/Dropdown";
-import IssueProgress from "../Issue/IssueProgress/IssueProgress";
+import IssueProgress from "./IssueProgress/IssueProgress";
 import dot from "../../../../../assets/issue-more-dot.svg";
-
 
 const IssueContainer = styled.div`
   display: flex;
@@ -51,8 +54,11 @@ const DropdownContainer = styled.div`
 `;
 
 
-const Issue = ({ issue, deleteIssue, cloneIssue }) => {
+const Issue = ({ issue, issues, deleteIssue, cloneIssue }) => {
   const [isDropped, setIsDropped] = useState(false);
+
+  const prevIssueIndex = _.findLastIndex(issues) - 1;
+  const prevIssue = issues[prevIssueIndex]
 
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
   const handleDeleteIssue = () => {
@@ -61,17 +67,22 @@ const Issue = ({ issue, deleteIssue, cloneIssue }) => {
   const handleCloneIssue = () => {
     cloneIssue(issue.id);
     startStopwatch();
+    handleDropHide();
   };
 
   return (
-    <> 
+    <>
       <IssueContainer>
         <IssueBox>
           <IssueInfo issue={issue} />
           <IssueProgress issue={issue} />
         </IssueBox>
         <DropdownContainer>
-          <Dropdown isDropped={isDropped} deleteIssue={handleDeleteIssue} cloneIssue={handleCloneIssue} />
+          <Dropdown
+            isDropped={isDropped}
+            deleteIssue={handleDeleteIssue}
+            cloneIssue={handleCloneIssue}
+          />
         </DropdownContainer>
         <MoreDots onClick={handleDropHide}>
           <img src={dot} alt="dot" />
@@ -84,8 +95,8 @@ const Issue = ({ issue, deleteIssue, cloneIssue }) => {
 
 const mapDispatchToProps = {
   deleteIssue,
-  cloneIssue, 
-  startStopwatch
+  cloneIssue,
+  startStopwatch,
 };
 
 export default connect(null, mapDispatchToProps)(Issue);

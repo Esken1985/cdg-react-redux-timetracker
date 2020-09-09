@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AddNewWorklog from "./AddNewWorklog/AddNewWorklog";
+import CalendarSync from "./CalendarSync/CalendarSync";
 
 
 const AsideContainer = styled.div`
@@ -12,6 +13,7 @@ const Aside = () => {
   return (
     <AsideContainer>
         <AddNewWorklog />
+        <CalendarSync />
     </AsideContainer>
   );
 };

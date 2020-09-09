@@ -1,19 +1,28 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
-import { AppWrapper, AppGrid, Container } from "./styled/styled";
-import Main from "./components/Main/Main";
-import Aside from "./components/Aside/Aside";
+import { AppWrapper, Container } from "./styled/styled";
+import IssuesPage from "./components/IssuesPage/IssuesPage";
+import HomePage from "./components/HomePage/HomePage";
+import FilterPage from "./components/FilterPage/FilterPage";
+import ProjectsPage from "./components/ProjectsPage/ProjectsPage";
+import LoginPage from "./components/LoginPage/LoginPage";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
     <AppWrapper>
       <Header />
       <Container>
-      <AppGrid>
-        <Main />
-        <Aside />
-      </AppGrid>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/issues" component={IssuesPage} />
+          <Route path="/filter" component={FilterPage} />
+          <Route path="/projects" component={ProjectsPage} />
+          <Route path="/login" component={LoginPage} />
+        </Switch>
       </Container>
+      <Footer/>
     </AppWrapper>
   );
 }

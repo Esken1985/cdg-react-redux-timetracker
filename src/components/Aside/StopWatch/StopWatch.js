@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import styled from "styled-components"
 import {connect} from "react-redux"
 import {setWorklogStartTimepoint, setWorklogEndTimepoint} from "../../../redux/actions/actionCreators"
@@ -48,7 +48,7 @@ const StopwatchButton = styled.button`
 
 
 
-class StopWatch extends React.Component {
+class StopWatch extends Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -128,8 +128,7 @@ class StopWatch extends React.Component {
 const mapStateToProps = (state) => {
   return {
     startTime: state.startTime,
-    endTime: state.endTime,
-    isRunning: state.isRunning
+    endTime: state.endTime
   }
 }
 

@@ -1,9 +1,8 @@
-import { SET_WORKLOG_START_TIMEPOINT, SET_WORKLOG_END_TIMEPOINT, START_STOPWATCH, HIDE_STOPWATCH } from '../actions/actionTypes'
+import { SET_WORKLOG_START_TIMEPOINT, SET_WORKLOG_END_TIMEPOINT  } from '../actions/actionTypes'
 
 const initialState = {
     startTime: "",
     endTime: "",
-    isRunning: true
 }
 
 export const stopwatchReducer = (state = initialState, action) => {
@@ -16,14 +15,6 @@ export const stopwatchReducer = (state = initialState, action) => {
     return {
       endTime: new Date()
     }
-    case START_STOPWATCH:
-      return {
-        ...state, isRunning: true
-      }
-    case HIDE_STOPWATCH:
-      return {
-        ...state, isRunning: false
-      }
     default: return state
   }
 }

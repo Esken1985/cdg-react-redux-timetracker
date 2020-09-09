@@ -27,6 +27,8 @@ const StyledNavLink = styled(NavLink)`
     color: #828282;
   }
 `;
+
+
 const HeaderNavbar = () => {
   return (
     <HeaderNavLinks>

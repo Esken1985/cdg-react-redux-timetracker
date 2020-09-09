@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import IssuesDatePicker from "./IssuesDatePicker/IssuesDatePicker";
 import IssuesSortingLinks from "./IssuesSortingLinks/IssuesSortingLinks"
+import DatePicker from "./IssuesDatePicker/DatePicker";
 
 export const IssuesSectionTopContainer = styled.div`
   position: relative;
@@ -12,9 +13,10 @@ export const IssuesSectionTopContainer = styled.div`
 
 
 const IssuesSectionTop = () => {
+  
   return (
     <IssuesSectionTopContainer>
-      <IssuesDatePicker />
+      <DatePicker />
       <IssuesSortingLinks />
     </IssuesSectionTopContainer>
   );
