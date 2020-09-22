@@ -127,9 +127,6 @@ const DateStateMissed = styled(DateState)`
 
 const DatePicker = () => {
   const [isHidden, setIsHidden] = useState(true);
-  const showDatepicker = () => {
-    setIsHidden(!isHidden)
-  };
   const date = new Date();
   date.setDate(1);
   const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
@@ -182,14 +179,14 @@ const DatePicker = () => {
 
   return (
     <>
-      <SelectedDate onClick={showDatepicker} >
+      <SelectedDate onClick={() => {setIsHidden(false)}} >
         <p>{format(new Date(), "d MMMM yyy")}</p>
         <img src={datepicker} alt={datepicker} />
       </SelectedDate>
       {
         isHidden ? null :
 
-      <DatePickerContainer>
+      <DatePickerContainer onClick={() => {setIsHidden(true)}} onMouseLeave={() => {setIsHidden(true)}}>
         <DatePickerBody>
           <Month>
             <MonthName>{months[month]}</MonthName>

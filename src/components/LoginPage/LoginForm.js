@@ -28,7 +28,7 @@ const LoginForm = () => {
     email: Yup.string().email("Invalid email format").required("Required"),
     password: Yup.string().required("Required"),
   });
-  const onSubmit = (values) => {
+  const handleSubmit = (values) => {
     console.log("Form data", values);
   };
 
@@ -36,7 +36,7 @@ const LoginForm = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       {(formik) => {
         return (
@@ -55,7 +55,7 @@ const LoginForm = () => {
                 name="password"
               />
               <SubmitButton type="submit" disabled={!formik.isValid}>
-                Submit
+                Sign In
               </SubmitButton>
             </FormElementsContainer>
           </StyledForm>

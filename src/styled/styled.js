@@ -31,5 +31,5 @@ export const PageTitle = styled.h1`
   font-size: 48px;
   font-weight: bold;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 500px;
 `;

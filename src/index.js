@@ -13,6 +13,7 @@ const store = createStore(rootReducer, persistedState);
 store.subscribe(() => saveToLocalStorage(store.getState()))
 // localStorage.clear()
 
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

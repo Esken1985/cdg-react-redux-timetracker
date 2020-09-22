@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Slider, Rail, Handles, Tracks } from "react-compound-slider";
 import styled from 'styled-components'
-import {connect} from "react-redux"
 import { SliderRail, Handle, Track} from "./ModalTimeRangeComponents"; // example render components - source below
 import { addHours, startOfToday} from "date-fns";
 
@@ -29,7 +28,7 @@ const oneMinute = 1000 * 60;
 class ModalTimeRange extends Component {
   render() {
     const { values, updateValues  } = this.props;
-  
+    console.log(values);
     return (
       <div>  
         <SliderContainer>
@@ -80,11 +79,5 @@ class ModalTimeRange extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    startTime: state.startTime,
-    endTime: state.endTime
-  }
-}
 
-export default connect(mapStateToProps, null)(ModalTimeRange)
+export default ModalTimeRange

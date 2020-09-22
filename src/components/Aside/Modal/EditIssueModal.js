@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import {createIssue, createIssuesBlock} from "../../../redux/actions/actionCreators";
+import {editIssue} from "../../../redux/actions/actionCreators";
 import uuid from "react-uuid";
-import { addHours, startOfToday, format } from "date-fns";
+import { format } from "date-fns";
 import styled from "styled-components";
 import ModalButton from "./ModalButton.js";
 import ModalTimeRange from "./ModalTimeRange/ModalTimeRange.js";
@@ -49,7 +49,7 @@ const Error = styled.div`
 `;
 
 
-const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, endTime, closeModal}) => {
+const ModalForm = ({closeModal, editIssue}) => {
   const initialInputState = {
     worklogname: "",
     issuename: "",
@@ -57,23 +57,6 @@ const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, e
     issuenameError: "",
   };
   const [inputState, setInputState] = useState(initialInputState);
-  
-  // const [timeRangeValues, setTimeRangeValues] = useState({
-  //   values: [startTime, endTime],
-  // });
-  const timeRangeValues = []
-  timeRangeValues.push(startTime)
-  timeRangeValues.push(endTime)
-
-  // const startTimeInMS = timeRangeValues.values[0];
-  // const endTimeInMS = timeRangeValues.values[1];
-  // const duration = endTimeInMS - startTimeInMS;
-
-  // function updateValues(values) {
-  //   setTimeRangeValues({
-  //     values,
-  //   });
-  // }
 
   const inputChangeHandler = (event) => {
     event.persist();
@@ -105,25 +88,8 @@ const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, e
   const submitHandler = (e) => {
     e.preventDefault();
     const { worklogname, issuename } = inputState;
-    // const startTime = timeRangeValues.values[0];
-    // const endTime = timeRangeValues.values[1];
-    const date = format(new Date(), "EEE, MMMM dd");
     const isValid = validate();
-    const newIssuesBlockDate = {
-      blockDate: date
-    };
-    const newIssue = {
-      worklogname,
-      issuename,
-      date,
-      startTime: format(startTime, "HH:mm"),
-      endTime: format(endTime, "HH:mm"),
-      duration: endTime - startTime,
-      id: uuid(),
-    };
     if (isValid) {
-      createIssuesBlock(newIssuesBlockDate);
-      createIssue(newIssue);
       closeModal();
       closeStopwatch();
       setInputState(initialInputState);
@@ -172,9 +138,13 @@ const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, e
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    issues: state.issues.issues
+  }
+}
 const mapDispatchToProps = {
-  createIssue,
-  createIssuesBlock,
+  editIssue
 };
 
-export default connect(null, mapDispatchToProps)(ModalForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalForm);

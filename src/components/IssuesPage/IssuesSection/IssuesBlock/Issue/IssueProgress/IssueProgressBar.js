@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -19,7 +20,7 @@ const ProgressBar = styled.progress`
     }
     &::-webkit-progress-value {
         height: 4px;
-        background-color: ${props => props.value < 100 ? '#FFCC40' : '#62D2B1'};
+        background-color: ${props => props.value === props.max ? '#62D2B1' : '#FFCC40' };
         border-radius: 6px;
     }
     &::-moz-progress-bar {
@@ -30,9 +31,12 @@ const ProgressBar = styled.progress`
 `
 
 const IssueProgressBar = () => {
+    const progressValue = 2
+    const progressMaxValue = 2
+   
     return (
         <Container>
-            <ProgressBar value="0" max="100"></ProgressBar>
+            <ProgressBar value={progressValue} max={progressMaxValue}></ProgressBar>
         </Container>
     )
 }

@@ -1,46 +1,39 @@
-import { CREATE_ISSUE, DELETE_ISSUE, SET_WORKLOG_START_TIMEPOINT, SET_WORKLOG_END_TIMEPOINT, CLONE_ISSUE, HIDE_STOPWATCH, START_STOPWATCH, CREATE_ISSUES_BLOCK } from "./actionTypes";
+import {
+  CREATE_ISSUE,
+  DELETE_ISSUE,
+  CLONE_ISSUE,
+  CREATE_ISSUES_BLOCK,
+  EDIT_ISSUE
+} from "./actionTypes";
 
-export function createIssuesBlock (date) {
-    return {
-        type: CREATE_ISSUES_BLOCK,
-        payload: date,
-    }
-} 
-export function createIssue (issue) {
-    return {
-        type: CREATE_ISSUE,
-        payload: issue, 
-    }
+export function createIssuesBlock(date) {
+  return {
+    type: CREATE_ISSUES_BLOCK,
+    payload: date,
+  };
 }
-export function deleteIssue (id) {
-    return {
-        type: DELETE_ISSUE,
-        id: id
-    }
+export function createIssue(issue) {
+  return {
+    type: CREATE_ISSUE,
+    payload: issue,
+  };
 }
-export function cloneIssue (id) {
-    return {
-        type: CLONE_ISSUE,
-        id: id
-    }
+export function editIssue(id, edittedIssue) {
+  return {
+    type: EDIT_ISSUE,
+    id,
+    edittedIssue
+  };
 }
-export function setWorklogStartTimepoint () {
-    return {
-        type: SET_WORKLOG_START_TIMEPOINT
-    }
+export function deleteIssue(id) {
+  return {
+    type: DELETE_ISSUE,
+    id: id,
+  };
 }
-export function setWorklogEndTimepoint () {
-    return {
-        type: SET_WORKLOG_END_TIMEPOINT
-    }
-}
-export function startStopwatch () {
-    return {
-        type: START_STOPWATCH
-    }
-}
-export function hideStopwatch () {
-    return {
-        type: HIDE_STOPWATCH
-    }
+export function cloneIssue(id) {
+  return {
+    type: CLONE_ISSUE,
+    id: id,
+  };
 }

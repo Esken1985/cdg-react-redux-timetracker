@@ -1,22 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import IssuesDatePicker from "./IssuesDatePicker/IssuesDatePicker";
 import IssuesSortingLinks from "./IssuesSortingLinks/IssuesSortingLinks"
-import DatePicker from "./IssuesDatePicker/DatePicker";
+import MaterialDatePicker from "./IssuesDatePicker/MaterialDatePicker";
+import DatePicker from './IssuesDatePicker/DatePicker'
+
 
 export const IssuesSectionTopContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding: 0px 141px 47px 14px;
+  padding: 81px 141px 47px 14px;
 `;
 
 
-const IssuesSectionTop = () => {
+const IssuesSectionTop = ({selectedDate, handleDateChange}) => {
   
   return (
     <IssuesSectionTopContainer>
-      <DatePicker />
+      <DatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
       <IssuesSortingLinks />
     </IssuesSectionTopContainer>
   );

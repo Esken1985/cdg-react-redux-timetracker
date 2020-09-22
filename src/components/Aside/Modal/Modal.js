@@ -1,6 +1,8 @@
 import React from "react";
+import { useContext } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import ModalContext from "../../../context/modalContext.js";
 import ModalForm from "./ModalForm.js";
 
 const ModalDisplay = styled.div`
@@ -50,15 +52,16 @@ const ModalContainer = styled.div`
   margin: 0 auto;
 `;
 
-const Modal = ({ isShown, close, startStopwatch, closeStopwatch }) => {
+const Modal = ({ startStopwatch, closeStopwatch, startTime, endTime, closeModal }) => {
+  const context = useContext(ModalContext)
   return ReactDOM.createPortal(
-    <ModalDisplay className={isShown ? "shown" : ""}>
+    <ModalDisplay className={context.modalIsOpen ? "shown" : ""}>
       <ModalOverlay>
         <ModalWindow>
           <ModalHeader>New Worklog</ModalHeader>
           <ModalContainer>
             <ModalContent>
-              <ModalForm close={close} startStopwatch={startStopwatch} closeStopwatch={closeStopwatch} />
+              <ModalForm startStopwatch={startStopwatch} closeStopwatch={closeStopwatch} startTime={startTime} endTime={endTime} closeModal={closeModal} />
             </ModalContent>
           </ModalContainer>
         </ModalWindow>

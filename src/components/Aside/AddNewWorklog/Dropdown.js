@@ -12,6 +12,7 @@ const DropdownBox = styled.div`
   }
 `;
 const DropdownContainer = styled.div`
+width: 170px;
   padding: 10px 0px;
   display: flex;
   flex-direction: column;
@@ -24,6 +25,7 @@ const DropdownItem = styled.div`
   text-align: center;
   cursor: pointer;
   padding: 11px 33px 10px 32px;
+  transition: 0.2s;
     &:hover{
       background: #E3F3FF;
     }

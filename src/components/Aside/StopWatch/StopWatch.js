@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import styled from "styled-components"
-import {connect} from "react-redux"
-import {setWorklogStartTimepoint, setWorklogEndTimepoint} from "../../../redux/actions/actionCreators"
 import stopbtn from "../../../assets/timer-stop.svg";
 import pausebtn from "../../../assets/timer-pause.svg";
 import startbtn from "../../../assets/timer-start.svg"
@@ -62,7 +60,7 @@ class StopWatch extends Component {
 
 
   componentDidMount() {
-    this.props.setWorklogStartTimepoint()
+    this.props.setStartTime()
     this.timerID = setInterval(() => {
       this.setState((state) => {
         return {
@@ -77,7 +75,7 @@ class StopWatch extends Component {
   handleStopBtnClick = () => {
     clearInterval(this.timerID);
     this.setState({isRunning: false})
-    this.props.setWorklogEndTimepoint()
+    this.props.setEndTime()
     this.props.openModal()
   }
 
@@ -125,16 +123,6 @@ class StopWatch extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    startTime: state.startTime,
-    endTime: state.endTime
-  }
-}
 
-const mapDispatchToProps = {
-  setWorklogStartTimepoint,
-  setWorklogEndTimepoint,
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(StopWatch);
+export default StopWatch;

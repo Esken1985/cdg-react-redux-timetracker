@@ -1,13 +1,13 @@
 import {
   CREATE_ISSUE,
   DELETE_ISSUE,
-  CLONE_ISSUE
+  CLONE_ISSUE, EDIT_ISSUE
 } from "../actions/actionTypes";
 import _ from "lodash";
 import uuid from "react-uuid";
 
 const initialState = {
-  issues: [],
+  issues: []
 };
 
 export const issuesReducer = (state = initialState, action) => {
@@ -24,6 +24,13 @@ export const issuesReducer = (state = initialState, action) => {
       return {
         ...state,
         issues: newIssues,
+      };
+    case EDIT_ISSUE:
+      let targetIssue = _.find(state.issues, function (issue) {
+        return issue.id === action.id;
+      });
+      return {
+        state
       };
     case CLONE_ISSUE:
       let objToClone = _.find(state.issues, function (issue) {

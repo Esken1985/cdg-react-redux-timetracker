@@ -18,7 +18,7 @@ const Button = styled.button`
 
 const ModalButton = (props) => {
     return (
-        <Button onClick={props.close} type={props.type}>
+        <Button onClick={props.closeModal} type={props.type}>
             {props.children}
         </Button>
     )

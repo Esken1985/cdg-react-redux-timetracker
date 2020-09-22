@@ -12,14 +12,8 @@ import _ from "lodash";
         if (!_.isEqual(prevBlock, action.payload))
           return {
             ...state,
-            issuesBlocks: state.issuesBlocks.concat([action.payload]).reverse(),
+            issuesBlocks: state.issuesBlocks.concat([action.payload])
           };
-        else
-          return {
-            ...state,
-            issuesBlocks: _.cloneDeep(state.issuesBlocks),
-          };
-  
       default:
         return state;
     }

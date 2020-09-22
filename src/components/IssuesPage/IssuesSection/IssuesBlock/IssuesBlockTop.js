@@ -46,24 +46,24 @@ const TotalHours = styled.div`
     color: #bbbbbb;
     padding-bottom: 8px;
   }
-  & progress {
-    width: 100px;
-    height: 6px;
-    border-radius: 4px;
-    background-color: #e9ecf2;
-  }
-  & progress::-webkit-progress-bar {
-    background-color: #e9ecf2;
-    border-radius: 6px;
-  }
-  & progress::-webkit-progress-value {
-    background-color: #ffcc40;
-    border-radius: 6px;
-  }
-  & progress::-moz-progress-bar {
-    background-color: #e9ecf2;
-    border-radius: 6px;
-  }
+    & progress {
+      width: 100px;
+      height: 6px;
+      border-radius: 4px;
+      background-color: #e9ecf2;
+    }
+    & progress::-webkit-progress-bar {
+      background-color: #e9ecf2;
+      border-radius: 6px;
+    }
+    & progress::-webkit-progress-value {
+      background: ${props => props.max === props.value ? '#62D2B1': '#ffcc40'};
+      border-radius: 6px;
+    }
+    & progress::-moz-progress-bar {
+      background-color: #e9ecf2;
+      border-radius: 6px;
+    }
 `;
 
 function msToTime(duration) {
@@ -83,6 +83,11 @@ const IssuesBlockTop = ({ issuesBlock, issues }) => {
     if (issuesBlock.blockDate === issue.date) return issue.duration;
   });
   const totalDuration = msToTime(_.sum(issuesDurationArr));
+  const curDayIssuesArr = issues.map((issue) => {
+    if (issuesBlock.blockDate === issue.date) return issue;
+  });
+  const issuesAmount = _.lastIndexOf(curDayIssuesArr)
+  const value = 2
 
   return (
     <IssuesBlockTopContainer>
@@ -90,9 +95,9 @@ const IssuesBlockTop = ({ issuesBlock, issues }) => {
         <Day>{issuesBlock.blockDate}</Day>
       </Date>
       <TotalProgress>
-        <TotalHours>
+        <TotalHours value={value} max={issuesAmount}>
           <p> {totalDuration} </p>
-          <progress value="0" max="100"></progress>
+          <progress value={value} max={issuesAmount}></progress>
         </TotalHours>
         <DownloadBtn>
           <img src={dwnldbtn} alt="download" />

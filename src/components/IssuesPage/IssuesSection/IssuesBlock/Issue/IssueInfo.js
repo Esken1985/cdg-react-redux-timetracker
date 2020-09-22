@@ -5,10 +5,16 @@ const IssueInfoContainer = styled.div`
   display: flex;
   width: 570px;
 `;
-const IssueStateLine = styled.div`
+const IssuesInitStateLine = styled.div`
   width: 3px;
   height: 76px;
   background-color: #e34040;
+  border-radius: 1px;
+`;
+const IssueStateLine = styled.div`
+  width: 3px;
+  height: 76px;
+  background-color: ${props => props.uploaded === 1 ? '#FFCC40' : '#62D2B1'};
   border-radius: 1px;
 `;
 const IssueTime = styled.div`
@@ -29,7 +35,7 @@ const IssueTime = styled.div`
   }
 `;
 const IssueTitle = styled.div`
-  padding: 13px 131px 17px 27px;
+  padding: 13px 0px 17px 27px;
   min-width: 200px;
   & p {
     font-size: 18px;
@@ -53,16 +59,18 @@ const IssueTitle = styled.div`
 //   background-color: #ffffff;
 // `;
 
-
 const IssueInfo = ({ issue }) => {
   const { startTime, endTime, issuename, worklogname } = issue;
+  const uploaded = 2;
   return (
     <IssueInfoContainer>
       <IssueTime>
-        <p> {startTime} </p> <span> - {endTime} </span> 
+        <p> {startTime} </p> <span> - {endTime} </span>
         {/* <IssuesAmount>2</IssuesAmount> */}
       </IssueTime>
-      <IssueStateLine />
+      {
+        uploaded === 0 ? <IssuesInitStateLine /> : <IssueStateLine uploaded={uploaded} />
+      }
       <IssueTitle>
         <p>{issuename}</p>
         <h3>{worklogname}</h3>

@@ -1,12 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SyncSwitch from "./SyncSwitch";
 import SyncTaskCard from "./SyncTaskCard";
 import calendar from "../../../assets/calendar.svg";
 
-const CalendarSyncContainer = styled.div`
-
-`;
+const CalendarSyncContainer = styled.div``;
 const Header = styled.div`
   font-weight: bold;
   font-size: 24px;
@@ -21,17 +19,17 @@ const TopContainer = styled.div`
   padding-top: 31px;
 `;
 const CalendarImg = styled.img`
-margin-left: 238px;
+  margin-left: 238px;
 `;
 
 const CalendarSync = () => {
-    const [state, setState] = useState({
-        checked: false,
-      });
-  
-      const handleChange = (event) => {
-          setState({ ...state, [event.target.name]: event.target.checked });
-        };
+  const [state, setState] = useState({
+    checked: false,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
   return (
     <CalendarSyncContainer>
       <TopContainer>
@@ -39,9 +37,7 @@ const CalendarSync = () => {
         <SyncSwitch state={state} handleChange={handleChange} />
         <CalendarImg src={calendar} alt={calendar} />
       </TopContainer>
-      {
-          !state.checked ? null : <SyncTaskCard />
-      }
+      {!state.checked ? null : <SyncTaskCard />}
     </CalendarSyncContainer>
   );
 };

@@ -23,10 +23,10 @@ const TimeMarker = styled.span`
   padding-left: 36px;
 `;
 
-const IssuesTimeline = () => {
+const IssuesTimeline = ({addIssueToTimeline}) => {
   return (
     <>
-      <TimeScale />
+      <TimeScale/>
       <TimeMarkersContainer>
         <TimeMarker>7:00</TimeMarker>
         <TimeMarker>8:00</TimeMarker>

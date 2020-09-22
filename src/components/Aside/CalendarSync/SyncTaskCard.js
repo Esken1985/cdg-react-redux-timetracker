@@ -20,7 +20,7 @@ const CardItem = styled.div`
 `;
 const TaskState = styled.div`
   position: relative;
-  background: #75e1f9;
+  background: #F2994A;
   border-radius: 1px;
   width: 3px;
   height: 76px;
@@ -41,6 +41,20 @@ const SyncTaskCard = () => {
         <div>
           <TaskTitle>Logo redesign</TaskTitle>
           <TaskTime>09:00 - 10:00</TaskTime>
+        </div>
+      </CardItem>
+      <CardItem>
+        <TaskState></TaskState>
+        <div>
+          <TaskTitle>Meeting with CEO</TaskTitle>
+          <TaskTime>14:00 - 14:45</TaskTime>
+        </div>
+      </CardItem>
+      <CardItem>
+        <TaskState></TaskState>
+        <div>
+          <TaskTitle>Brainstorm</TaskTitle>
+          <TaskTime>15:00 - 16:15</TaskTime>
         </div>
       </CardItem>
     </CardsContainer>

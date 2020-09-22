@@ -1,4 +1,53 @@
-class Stopwatch extends React.Component {
+import React, {Component} from "react";
+import styled from "styled-components"
+import {connect} from "react-redux"
+import stopbtn from "../../../assets/timer-stop.svg";
+import pausebtn from "../../../assets/timer-pause.svg";
+import startbtn from "../../../assets/timer-start.svg"
+
+const Stopwatch = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-size: 54px;
+    color: #1E1E1E;
+`;
+const StopwatchTitle = styled.div`
+    text-align: center;
+`;
+const StopwatchWorklogName = styled.div`
+    font-weight: 500;
+    font-size: 20px;
+    color: #000000;
+    padding-bottom: 14px;
+`;
+const StopwatchHeaderText = styled.div`
+    font-size: 18px;
+    color: #828282;
+    padding-bottom: 11px;
+`;
+const ButtonsContainer = styled.div`
+    display: flex;    
+    padding-top: 31px;
+    padding-bottom: 33px;
+    & button:first-child{
+      margin-right: 22px;
+    }
+`;
+const StopwatchButton = styled.button`
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    background: ${props => props.stop ? "#EB5757" : "#3744BD"};
+    justify-content: center;
+    align-items: center;
+`;
+
+
+
+class StopWatchTwo extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -7,23 +56,17 @@ class Stopwatch extends React.Component {
         timerTime: 0
       };
     }
-  
+
     async componentDidMount() {
       let timerOn = localStorage.getItem('timerOn') === "true";
       let timerStart = localStorage.getItem('timerStart')
       let timerTime = localStorage.getItem('timerTime')
-  
       await this.setState({
         timerOn: timerOn,
         timerStart: timerStart,
         timerTime: timerTime
-      });
-  
-      if (timerOn) {
-        this.startTimer()
-      }
+      });   
     }
-  
   
     startTimer = (e) => {
       let { timerOn, timerTime = 0, timerStart = 0 } = this.state;
@@ -53,7 +96,7 @@ class Stopwatch extends React.Component {
         this.setState({
           timerTime: Date.now() - timerStart
         });
-      }, 10);
+      }, 1000);
   
       localStorage.setItem('timerOn', true);
       localStorage.setItem('timerStart', timerStart)
@@ -66,29 +109,38 @@ class Stopwatch extends React.Component {
       localStorage.setItem('timerTime', this.state.timerTime);
       localStorage.removeItem("timerStart")
       clearInterval(this.timer);
+      this.props.setEndTime()
+      this.props.openModal()
     };
   
     render() {
       const { timerTime = 0 } = this.state;
-      let centiseconds = ("0" + (Math.floor(timerTime / 10) % 100)).slice(-2);
       let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
       let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
       let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
   
       return (
-        <div>
-          <div className="Stopwatch-display">
-            {hours} : {minutes} : {seconds}
-          </div>
-  
-          {(
-            <button onClick={this.startTimer}>Start</button>
-          )}
-  
-          {this.state.timerOn === true && this.state.timerTime > 0 && (
-            <button onClick={this.stopTimer}>Stop</button>
-          )}
-        </div>
+        <Stopwatch>
+        <StopwatchTitle>
+          <StopwatchWorklogName>Meeting with QA</StopwatchWorklogName>
+          <StopwatchHeaderText>ADD ISSUE</StopwatchHeaderText>
+        </StopwatchTitle>
+        {hours}:
+        {minutes}:
+        {seconds}
+        <ButtonsContainer>
+          <StopwatchButton stop onClick={this.stopTimer} >
+            <img src={stopbtn} alt="stop" />
+          </StopwatchButton>
+          <StopwatchButton  onClick={this.startTimer}>
+              <img src={startbtn} alt="play" />
+          </StopwatchButton>
+        </ButtonsContainer>
+      </Stopwatch>
       );
     }
   }
+
+  
+  
+  export default StopWatchTwo;
