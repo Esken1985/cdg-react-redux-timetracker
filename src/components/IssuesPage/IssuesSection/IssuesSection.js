@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { format } from "date-fns";
 import _ from "lodash";
 import { connect } from "react-redux";
 import IssuesBlock from "./IssuesBlock/IssuesBlock";
@@ -13,7 +12,7 @@ const IssuesSectionWrapper = styled.section`
 function IssuesSection({ issuesBlocks, issues }) {
   const [selectedDate, handleDateChange] = useState(new Date());
   const reversedIssueBlocks = [...issuesBlocks].reverse();
-  const currDay = format(new Date(), "EEE, MMMM dd");
+  // const currDay = format(new Date(), "EEE, MMMM dd");
   const issuesByDate = _.groupBy(issues, "date");
   _.forEach(issuesByDate, function(value, key) {
     // console.log(value);

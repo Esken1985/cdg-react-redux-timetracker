@@ -33,7 +33,7 @@ const AddNewWorklog = () => {
   const closeStopwatch = () => setStopwatchOn(false);
   const setStartTime = () => setStartPoint({ startTime: Date.now() });
   const setEndTime = () => setEndPoint({ endTime: Date.now() });
-  const duration = endPoint.endTime - startPoint.startTime
+  // const duration = endPoint.endTime - startPoint.startTime
 
   return (
     <BlockContainer>

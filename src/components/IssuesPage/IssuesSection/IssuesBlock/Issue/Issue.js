@@ -7,10 +7,8 @@ import {
   editIssue,
 } from "../../../../../redux/actions/actionCreators";
 import IssueInfo from "./IssueInfo";
-import _ from "lodash";
 import Dropdown from "../../../../Aside/AddNewWorklog/Dropdown";
 import IssueProgress from "./IssueProgress/IssueProgress";
-import dot from "../../../../../assets/issue-more-dot.svg";
 import ModalContext from "../../../../../context/modalContext";
 
 const IssueContainer = styled.div`

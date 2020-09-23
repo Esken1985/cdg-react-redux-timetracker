@@ -1,5 +1,4 @@
-import React, {useContext, useState} from "react";
-import _ from "lodash";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import Issue from "./Issue/Issue";
 import IssuesBlockTop from "./IssuesBlockTop";

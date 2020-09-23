@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import {createIssue, createIssuesBlock} from "../../../redux/actions/actionCreators";
 import uuid from "react-uuid";
-import { addHours, startOfToday, format } from "date-fns";
+import { format } from "date-fns";
 import styled from "styled-components";
 import ModalButton from "./ModalButton.js";
 import ModalTimeRange from "./ModalTimeRange/ModalTimeRange.js";
 import acceptbtn from "../../../assets/acceptbtn.svg";
 import cancelbtn from "../../../assets/cancelbtn.svg";
-import ModalContext from "../../../context/modalContext";
+// import ModalContext from "../../../context/modalContext";
 
 const ModalFormBox = styled.form`
   margin-bottom: 44px;

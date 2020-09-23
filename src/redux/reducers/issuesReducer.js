@@ -26,9 +26,9 @@ export const issuesReducer = (state = initialState, action) => {
         issues: newIssues,
       };
     case EDIT_ISSUE:
-      let targetIssue = _.find(state.issues, function (issue) {
-        return issue.id === action.id;
-      });
+      // let targetIssue = _.find(state.issues, function (issue) {
+      //   return issue.id === action.id;
+      // });
       return {
         state
       };
