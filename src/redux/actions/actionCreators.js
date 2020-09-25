@@ -3,7 +3,7 @@ import {
   DELETE_ISSUE,
   CLONE_ISSUE,
   CREATE_ISSUES_BLOCK,
-  EDIT_ISSUE
+  EDIT_ISSUE, ADD_TO_FAVORITES
 } from "./actionTypes";
 
 export function createIssuesBlock(date) {

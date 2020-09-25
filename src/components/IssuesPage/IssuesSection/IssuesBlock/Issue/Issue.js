@@ -3,13 +3,11 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import {
   deleteIssue,
-  cloneIssue,
-  editIssue,
+  cloneIssue
 } from "../../../../../redux/actions/actionCreators";
 import IssueInfo from "./IssueInfo";
 import Dropdown from "../../../../Aside/AddNewWorklog/Dropdown";
 import IssueProgress from "./IssueProgress/IssueProgress";
-import ModalContext from "../../../../../context/modalContext";
 
 const IssueContainer = styled.div`
   display: flex;
@@ -57,9 +55,8 @@ const DotsBlock = styled.div`
   z-index: 3;
 `;
 
-const Issue = ({ issue, deleteIssue, cloneIssue, editIssue }) => {
+const Issue = ({ issue, deleteIssue, cloneIssue }) => {
   const [isDropped, setIsDropped] = useState(false);
-  const context = useContext(ModalContext);
 
   // const prevIssueIndex = _.findLastIndex(issues) - 1;
   // const prevIssue = issues[prevIssueIndex]
@@ -70,7 +67,6 @@ const Issue = ({ issue, deleteIssue, cloneIssue, editIssue }) => {
   };
   const handleCloneIssue = () => {
     cloneIssue(issue.id);
-    context.openModal()
     handleDropHide();
   };
 
@@ -97,7 +93,6 @@ const Issue = ({ issue, deleteIssue, cloneIssue, editIssue }) => {
 const mapDispatchToProps = {
   deleteIssue,
   cloneIssue,
-  editIssue,
 };
 
 export default connect(null, mapDispatchToProps)(Issue);

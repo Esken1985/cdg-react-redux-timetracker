@@ -17,7 +17,6 @@ function IssuesSection({ issuesBlocks, issues }) {
   _.forEach(issuesByDate, function(value, key) {
     // console.log(value);
   });
-  
 
   return (
     <IssuesSectionWrapper>

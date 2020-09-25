@@ -46,7 +46,7 @@ export const issuesReducer = (state = initialState, action) => {
         endTime:'',
         duration:''
       }
-      return { ...state, issues: state.issues.concat(reasignedClonedObj) };
+      return { ...state, issues: state.issues.concat([reasignedClonedObj]) };
 
     default:
       return state;

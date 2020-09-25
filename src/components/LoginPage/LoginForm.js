@@ -1,11 +1,9 @@
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
-// import axios from 'axios'
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "./FormikControl/FormikControl";
 import { SubmitButton } from "./FormikControl/formikStyles";
-import authContext from '../../context/authContext'
 
 const StyledForm = styled(Form)`
   width: 500px;
@@ -21,9 +19,8 @@ const FormElementsContainer = styled.div`
 text-align: center;
 `;
 
-const LoginForm = ({history}) => {
-  const context = useContext(authContext);
-  console.log(context);
+const LoginForm = ({history, setAuthData}) => {
+  
   const initialValues = {
     email: "",
     password: "",
@@ -33,7 +30,7 @@ const LoginForm = ({history}) => {
     password: Yup.string().required("Required"),
   });
   const handleSubmit = (values) => {
-    context.setAuthData(values);
+    setAuthData(values);
     history.replace('/');
   };
 
