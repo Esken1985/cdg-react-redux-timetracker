@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import _ from "lodash";
+import {connect} from "react-redux"
+import {postIssue} from "../../../../redux/actions/actionCreators"
+import _  from "lodash";
 import dwnldbtn from "../../../../assets/dwnldbtn.svg";
+import { id } from "date-fns/locale";
 
 const IssuesBlockTopContainer = styled.div`
   display: flex;
@@ -46,25 +49,33 @@ const TotalHours = styled.div`
     color: #bbbbbb;
     padding-bottom: 8px;
   }
-    & progress {
-      width: 100px;
-      height: 6px;
-      border-radius: 4px;
-      background-color: #e9ecf2;
-    }
-    & progress::-webkit-progress-bar {
-      background-color: #e9ecf2;
-      border-radius: 6px;
-    }
-    & progress::-webkit-progress-value {
-      background: ${props => props.max === props.value ? '#62D2B1': '#ffcc40'};
-      border-radius: 6px;
-    }
-    & progress::-moz-progress-bar {
-      background-color: #e9ecf2;
-      border-radius: 6px;
-    }
+  & progress {
+    width: 100px;
+    height: 6px;
+    border-radius: 4px;
+    background-color: #e9ecf2;
+  }
+  & progress::-webkit-progress-bar {
+    background-color: #e9ecf2;
+    border-radius: 6px;
+  }
+  & progress::-webkit-progress-value {
+    background: ${(props) =>
+      props.max === props.value ? "#62D2B1" : "#ffcc40"};
+    border-radius: 6px;
+  }
+  & progress::-moz-progress-bar {
+    background-color: #e9ecf2;
+    border-radius: 6px;
+  }
 `;
+const EmptyBlock = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  color: #1e1e1e;
+  padding-right: 100px;
+`;
+
 
 function msToTime(duration) {
   let seconds = Math.floor((duration / 1000) % 60);
@@ -78,33 +89,45 @@ function msToTime(duration) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-const IssuesBlockTop = ({ issuesBlock, issues }) => {
+const IssuesBlockTop = ({ issuesBlock, issues, postIssue }) => {
   const issuesDurationArr = issues.map((issue) => {
     if (issuesBlock.blockDate === issue.date) return issue.duration;
   });
   const totalDuration = msToTime(_.sum(issuesDurationArr));
-  const curDayIssuesArr = issues.map((issue) => {
-    if (issuesBlock.blockDate === issue.date) return issue;
-  });
-  const issuesAmount = _.lastIndexOf(curDayIssuesArr)
-  const value = 2
+  const curDayIssuesArr = _.filter(issues, { 'date': issuesBlock.blockDate });
+  const issuesAmount = _.lastIndexOf(curDayIssuesArr);
+  const value = 2;
+  console.log(curDayIssuesArr);
+
+  // const issuesToUpload = _.forEach(curDayIssuesArr, function (obj) {delete obj.id})
+  const uploadIssues = () => {
+    postIssue(curDayIssuesArr)
+  }
 
   return (
     <IssuesBlockTopContainer>
       <Date>
         <Day>{issuesBlock.blockDate}</Day>
       </Date>
-      <TotalProgress>
-        <TotalHours value={value} max={issuesAmount}>
-          <p> {totalDuration} </p>
-          <progress value={value} max={issuesAmount}></progress>
-        </TotalHours>
-        <DownloadBtn>
-          <img src={dwnldbtn} alt="download" />
-        </DownloadBtn>
-      </TotalProgress>
+      {!curDayIssuesArr.length ? (
+        <EmptyBlock>All issues were deleted</EmptyBlock>
+      ) : (
+        <TotalProgress>
+          <TotalHours value={value} max={issuesAmount}>
+            <p> {totalDuration} </p>
+            <progress value={value} max={issuesAmount}></progress>
+          </TotalHours>
+          <DownloadBtn onClick={uploadIssues} >
+            <img src={dwnldbtn} alt="download" />
+          </DownloadBtn>
+        </TotalProgress>
+      )}
     </IssuesBlockTopContainer>
   );
 };
 
-export default IssuesBlockTop;
+const mapDispatchToProps = {
+  postIssue
+}
+
+export default connect(null, mapDispatchToProps)(IssuesBlockTop);

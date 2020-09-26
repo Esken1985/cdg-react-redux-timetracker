@@ -1,6 +1,7 @@
 export const CREATE_ISSUE = "CREATE_ISSUE";
 export const DELETE_ISSUE = "DELETE_ISSUE";
 export const EDIT_ISSUE = "EDIT_ISSUE";
+export const POST_ISSUE = "POST_ISSUE"
 export const CREATE_ISSUES_BLOCK = "CREATE_ISSUES_BLOCK";
 export const CREATE_ISSUES_HEADER = "CREATE_ISSUES_HEADER";
 export const CLONE_ISSUE = "CLONE_ISSUE";

@@ -1,7 +1,7 @@
 import {
   CREATE_ISSUE,
   DELETE_ISSUE,
-  CLONE_ISSUE, EDIT_ISSUE
+  CLONE_ISSUE, EDIT_ISSUE, POST_ISSUE
 } from "../actions/actionTypes";
 import _ from "lodash";
 import uuid from "react-uuid";
@@ -47,6 +47,8 @@ export const issuesReducer = (state = initialState, action) => {
         duration:''
       }
       return { ...state, issues: state.issues.concat([reasignedClonedObj]) };
+    case POST_ISSUE:
+      return { ...state}
 
     default:
       return state;

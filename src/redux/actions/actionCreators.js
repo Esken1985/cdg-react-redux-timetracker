@@ -3,8 +3,11 @@ import {
   DELETE_ISSUE,
   CLONE_ISSUE,
   CREATE_ISSUES_BLOCK,
-  EDIT_ISSUE, ADD_TO_FAVORITES
+  EDIT_ISSUE,
+  ADD_TO_FAVORITES,
+  POST_ISSUE,
 } from "./actionTypes";
+import axios from "axios";
 
 export function createIssuesBlock(date) {
   return {
@@ -22,7 +25,7 @@ export function editIssue(id, edittedIssue) {
   return {
     type: EDIT_ISSUE,
     id,
-    edittedIssue
+    edittedIssue,
   };
 }
 export function deleteIssue(id) {
@@ -37,3 +40,17 @@ export function cloneIssue(id) {
     id: id,
   };
 }
+export const postIssue = (issue) => {
+  return (dispatch) => {
+    axios
+      .post("http://localhost:3004/issues", issue)
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: POST_ISSUE,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {console.log(error);});
+  };
+};

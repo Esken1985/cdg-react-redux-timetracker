@@ -8,8 +8,7 @@ import ModalContext from "../../context/modalContext";
 import modalReducer from "../../context/modalReducer";
 import { CLOSE_MODAL, OPEN_MODAL } from "../../redux/actions/actionTypes";
 
-const IssuesPage = ({history}) => {
-  console.log(history);
+const IssuesPage = () => {
   const initialState = { modalIsOpen: false };
   const [state, dispatch] = useReducer(modalReducer, initialState);
   const openModal = () => {
