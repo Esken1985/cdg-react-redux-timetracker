@@ -4,7 +4,6 @@ import {connect} from "react-redux"
 import {postIssue} from "../../../../redux/actions/actionCreators"
 import _  from "lodash";
 import dwnldbtn from "../../../../assets/dwnldbtn.svg";
-import { id } from "date-fns/locale";
 
 const IssuesBlockTopContainer = styled.div`
   display: flex;
@@ -97,9 +96,7 @@ const IssuesBlockTop = ({ issuesBlock, issues, postIssue }) => {
   const curDayIssuesArr = _.filter(issues, { 'date': issuesBlock.blockDate });
   const issuesAmount = _.lastIndexOf(curDayIssuesArr);
   const value = 2;
-  console.log(curDayIssuesArr);
 
-  // const issuesToUpload = _.forEach(curDayIssuesArr, function (obj) {delete obj.id})
   const uploadIssues = () => {
     postIssue(curDayIssuesArr)
   }
@@ -117,7 +114,7 @@ const IssuesBlockTop = ({ issuesBlock, issues, postIssue }) => {
             <p> {totalDuration} </p>
             <progress value={value} max={issuesAmount}></progress>
           </TotalHours>
-          <DownloadBtn onClick={uploadIssues} >
+          <DownloadBtn >
             <img src={dwnldbtn} alt="download" />
           </DownloadBtn>
         </TotalProgress>

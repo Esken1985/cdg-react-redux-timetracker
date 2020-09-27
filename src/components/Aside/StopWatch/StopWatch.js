@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components"
+import _ from "lodash"
 import stopbtn from "../../../assets/timer-stop.svg";
 import pausebtn from "../../../assets/timer-pause.svg";
 import startbtn from "../../../assets/timer-start.svg"

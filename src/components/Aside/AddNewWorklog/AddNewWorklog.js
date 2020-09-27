@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import {connect} from "react-redux"
 import styled from "styled-components";
 import AddNewWorklogTop from "./AddNewWorklogTop";
 import AddNewWorklogBtn from "./AddNewWorklogBtn";
@@ -6,6 +7,7 @@ import Modal from "../Modal/Modal";
 import Dropdown from "./Dropdown";
 import StopWatch from "../StopWatch/StopWatch";
 import ModalContext from "../../../context/modalContext";
+import { alertContext } from "../../../context/alertContext";
 
 const BlockContainer = styled.div`
   position: relative;
@@ -17,23 +19,21 @@ const DropdownContainer = styled.div`
   right: 0;
 `;
 
-const AddNewWorklog = () => {
-  // const [isModalShown, setModalShown] = useState(false);
+
+const AddNewWorklog = ({issues}) => {
   const context = useContext(ModalContext)
+  const {openAlert} = useContext(alertContext)
   
   const [isDropped, setIsDropped] = useState(false);
   const [isStopwatchOn, setStopwatchOn] = useState(false);
   const [startPoint, setStartPoint] = useState({ startTime: "" });
   const [endPoint, setEndPoint] = useState({ endTime: "" });
 
-  // const closeModalHandler = () => setModalShown(false);
-  // const openModalHandler = () => setModalShown(true);
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
   const startStopwatch = () => setStopwatchOn(true);
   const closeStopwatch = () => setStopwatchOn(false);
-  const setStartTime = () => setStartPoint({ startTime: Date.now() });
-  const setEndTime = () => setEndPoint({ endTime: Date.now() });
-  // const duration = endPoint.endTime - startPoint.startTime
+  const setStartTime = () => setStartPoint({ startTime: new Date() });
+  const setEndTime = () => setEndPoint({ endTime: new Date() });
 
   return (
     <BlockContainer>
@@ -46,12 +46,13 @@ const AddNewWorklog = () => {
           setStartTime={setStartTime}
           setEndTime={setEndTime}
           openModal={context.openModal}
+          openAlert={openAlert}
+          issues={issues}
         />
       ) : (
         <AddNewWorklogBtn startStopwatch={startStopwatch} />
       )}
       <Modal
-        // isShown={isModalShown}
         closeModal={context.closeModal}
         startStopwatch={startStopwatch}
         closeStopwatch={closeStopwatch}
@@ -62,4 +63,9 @@ const AddNewWorklog = () => {
   );
 };
 
-export default AddNewWorklog;
+const mapStateToProps = (state) => {
+  return {
+    issues: state.issues.issues
+  }
+}
+export default connect(mapStateToProps)(AddNewWorklog);

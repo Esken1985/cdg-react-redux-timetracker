@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { connect } from "react-redux";
-import {createIssue, createIssuesBlock} from "../../../redux/actions/actionCreators";
+import {
+  createIssue,
+  createIssuesBlock,
+} from "../../../redux/actions/actionCreators";
+import { alertContext } from "../../../context/alertContext";
 import uuid from "react-uuid";
 import { format } from "date-fns";
 import styled from "styled-components";
@@ -48,8 +52,14 @@ const Error = styled.div`
   margin-bottom: 22px;
 `;
 
-
-const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, endTime, closeModal}) => {
+const ModalForm = ({
+  createIssue,
+  closeStopwatch,
+  createIssuesBlock,
+  startTime,
+  endTime,
+  closeModal,
+}) => {
   const initialInputState = {
     worklogname: "",
     issuename: "",
@@ -57,13 +67,13 @@ const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, e
     issuenameError: "",
   };
   const [inputState, setInputState] = useState(initialInputState);
-  
+  const { openAlert, closeAlert } = useContext(alertContext);
   // const [timeRangeValues, setTimeRangeValues] = useState({
   //   values: [startTime, endTime],
   // });
-  const timeRangeValues = []
-  timeRangeValues.push(startTime)
-  timeRangeValues.push(endTime)
+  const timeRangeValues = [];
+  timeRangeValues.push(startTime);
+  timeRangeValues.push(endTime);
 
   // const startTimeInMS = timeRangeValues.values[0];
   // const endTimeInMS = timeRangeValues.values[1];
@@ -110,7 +120,7 @@ const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, e
     const date = format(new Date(), "EEE, MMMM dd");
     const isValid = validate();
     const newIssuesBlockDate = {
-      blockDate: date
+      blockDate: date,
     };
     const newIssue = {
       worklogname,
@@ -127,6 +137,11 @@ const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, e
       closeModal();
       closeStopwatch();
       setInputState(initialInputState);
+    }
+    if (newIssue.duration < 60000) {
+      // newIssue.endTime = startTime + 60000
+      newIssue.duration = 60000;
+      openAlert();
     }
   };
 
@@ -161,10 +176,16 @@ const ModalForm = ({createIssue, closeStopwatch, createIssuesBlock, startTime, e
         <Error>{inputState.issuenameError}</Error>
       </InputBox>
       <ModalButtonsContainer>
-        <ModalButton type="submit">
+        <ModalButton
+          type="submit"
+        >
           <img src={acceptbtn} alt="accept" />
         </ModalButton>
-        <ModalButton closeModal={closeModal} type="button">
+        <ModalButton
+          closeModal={closeModal}
+          closeAlert={closeAlert}
+          type="button"
+        >
           <img src={cancelbtn} alt="cancel" />
         </ModalButton>
       </ModalButtonsContainer>

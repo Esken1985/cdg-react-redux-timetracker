@@ -28,7 +28,6 @@ const oneMinute = 1000 * 60;
 class ModalTimeRange extends Component {
   render() {
     const { values, updateValues  } = this.props;
-    console.log(values);
     return (
       <div>  
         <SliderContainer>

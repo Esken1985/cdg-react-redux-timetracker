@@ -2,7 +2,9 @@ import React from "react";
 import { useContext } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import { alertContext } from "../../../context/alertContext.js";
 import ModalContext from "../../../context/modalContext.js";
+import AlertDialog from "../../AlertDialog/AlertDialog.js";
 import ModalForm from "./ModalForm.js";
 
 const ModalDisplay = styled.div`
@@ -13,7 +15,7 @@ const ModalDisplay = styled.div`
 `;
 const ModalOverlay = styled.div`
   position: absolute;
-  z-index: 10;
+  z-index: 100;
   top: 0px;
   bottom: 0px;
   left: 0px;
@@ -45,28 +47,47 @@ const ModalHeader = styled.h3`
   font-size: 18px;
   color: #1e1e1e;
 `;
-const ModalContent = styled.div``;
+const ModalContent = styled.div`
+`;
 const ModalContainer = styled.div`
   width: 100%;
   max-width: 543px;
   margin: 0 auto;
 `;
 
-const Modal = ({ startStopwatch, closeStopwatch, startTime, endTime, closeModal }) => {
-  const context = useContext(ModalContext)
+const Modal = ({
+  startStopwatch,
+  closeStopwatch,
+  startTime,
+  endTime,
+  closeModal,
+}) => {
+  const context = useContext(ModalContext);
+  const { alertState } = useContext(alertContext);
   return ReactDOM.createPortal(
-    <ModalDisplay className={context.modalIsOpen ? "shown" : ""}>
-      <ModalOverlay>
-        <ModalWindow>
-          <ModalHeader>New Worklog</ModalHeader>
-          <ModalContainer>
-            <ModalContent>
-              <ModalForm startStopwatch={startStopwatch} closeStopwatch={closeStopwatch} startTime={startTime} endTime={endTime} closeModal={closeModal} />
-            </ModalContent>
-          </ModalContainer>
-        </ModalWindow>
-      </ModalOverlay>
-    </ModalDisplay>,
+    <>
+      {alertState ? (
+        <AlertDialog>You can't track less than minute</AlertDialog>
+      ) : null}
+      <ModalDisplay className={context.modalIsOpen ? "shown" : ""}>
+        <ModalOverlay>
+          <ModalWindow>
+            <ModalHeader>New Worklog</ModalHeader>
+            <ModalContainer>
+              <ModalContent>
+                <ModalForm
+                  startStopwatch={startStopwatch}
+                  closeStopwatch={closeStopwatch}
+                  startTime={startTime}
+                  endTime={endTime}
+                  closeModal={closeModal}
+                />
+              </ModalContent>
+            </ModalContainer>
+          </ModalWindow>
+        </ModalOverlay>
+      </ModalDisplay>
+    </>,
     document.getElementById("modal-root")
   );
 };

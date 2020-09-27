@@ -14,7 +14,9 @@ export const issuesBlocksReducer = (state = initialState, action) => {
           ...state,
           issuesBlocks: state.issuesBlocks.concat([action.payload]),
         };
-      break;
+        else return {
+          ...state
+        }
     default:
       return state;
   }

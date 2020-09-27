@@ -1,59 +1,61 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+import React from "react";
+import { useContext } from "react";
+import styled from "styled-components";
+import { alertContext } from "../../context/alertContext";
 
-const styles = (theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-});
+const Dialog = styled.div`
+  width: 100%;
+  max-width: 343px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: #ffffff;
+  box-shadow: 0px 7px 15px rgba(148, 156, 160, 0.13);
+  border-radius: 20px;
+`;
+const Text = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 275px;
+  min-height: 56px;
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: 18px;
+  color: #1e1e1e;
+  margin-top: 15px;
+  margin-bottom: 22px;
+`;
+const TopPart = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 28px 25px 0 34px;
+  align-items: center;
+`;
+const CloseButton = styled.button`
+  background-color: #ffffff;
+  color: #c4cacb;
+`;
+const Circle = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: yellow;
+`;
 
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props;
+const AlertDialog = (props) => {
+    const {closeAlert} = useContext(alertContext)
   return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
+    <Dialog>
+      <TopPart>
+        <Circle />
+        <CloseButton onClick={closeAlert}>&#215;</CloseButton>
+      </TopPart>
+      <Text>{props.children}</Text>
+    </Dialog>
   );
-});
+};
 
-export default function CustomizedDialogs() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open dialog
-      </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
-        </DialogTitle>
-      </Dialog>
-    </div>
-  );
-}
+export default AlertDialog;

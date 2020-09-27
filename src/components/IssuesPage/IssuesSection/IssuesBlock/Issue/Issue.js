@@ -60,7 +60,6 @@ const Issue = ({ issue, deleteIssue, cloneIssue }) => {
 
   // const prevIssueIndex = _.findLastIndex(issues) - 1;
   // const prevIssue = issues[prevIssueIndex]
-
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
   const handleDeleteIssue = () => {
     deleteIssue(issue.id);
