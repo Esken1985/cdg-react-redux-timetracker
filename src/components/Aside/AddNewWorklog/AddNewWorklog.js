@@ -32,8 +32,10 @@ const AddNewWorklog = ({issues}) => {
   const handleDropHide = () => setIsDropped(isDropped ? false : true);
   const startStopwatch = () => setStopwatchOn(true);
   const closeStopwatch = () => setStopwatchOn(false);
-  const setStartTime = () => setStartPoint({ startTime: new Date() });
-  const setEndTime = () => setEndPoint({ endTime: new Date() });
+  const setStartTime = () => setStartPoint({ startTime: Date.now() });
+  const setEndTime = () => setEndPoint({ endTime: Date.now() });
+
+  const duration = endPoint.endTime - startPoint.startTime
 
   return (
     <BlockContainer>
@@ -45,6 +47,7 @@ const AddNewWorklog = ({issues}) => {
         <StopWatch
           setStartTime={setStartTime}
           setEndTime={setEndTime}
+          duration={duration}
           openModal={context.openModal}
           openAlert={openAlert}
           issues={issues}

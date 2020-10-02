@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {connect} from "react-redux"
-import {postIssue} from "../../../../redux/actions/actionCreators"
-import _  from "lodash";
+import moment from "moment";
+import { connect } from "react-redux";
+import { postIssue } from "../../../../redux/actions/actionCreators";
+import _ from "lodash";
 import dwnldbtn from "../../../../assets/dwnldbtn.svg";
 
 const IssuesBlockTopContainer = styled.div`
@@ -14,11 +15,12 @@ const IssuesBlockTopContainer = styled.div`
 `;
 const Date = styled.p`
   font-size: 24px;
+  font-weight: bold;
   padding-left: 19px;
 `;
 const Day = styled.span`
   color: #1e1e1e;
-  font-weight: bold;
+  font-weight: normal;
 `;
 const TotalProgress = styled.div`
   display: flex;
@@ -75,7 +77,6 @@ const EmptyBlock = styled.div`
   padding-right: 100px;
 `;
 
-
 function msToTime(duration) {
   let seconds = Math.floor((duration / 1000) % 60);
   let minutes = Math.floor((duration / (1000 * 60)) % 60);
@@ -93,18 +94,21 @@ const IssuesBlockTop = ({ issuesBlock, issues, postIssue }) => {
     if (issuesBlock.blockDate === issue.date) return issue.duration;
   });
   const totalDuration = msToTime(_.sum(issuesDurationArr));
-  const curDayIssuesArr = _.filter(issues, { 'date': issuesBlock.blockDate });
+  const curDayIssuesArr = _.filter(issues, { date: issuesBlock.blockDate });
   const issuesAmount = _.lastIndexOf(curDayIssuesArr);
   const value = 2;
 
-  const uploadIssues = () => {
-    postIssue(curDayIssuesArr)
-  }
+  const issuesBlockDate = moment(issuesBlock.blockDate).format("ddd, ");
+  const issuesBlockDay = moment(issuesBlock.blockDate).format("MMMM DD");
+  // const uploadIssues = () => {
+  //   postIssue(curDayIssuesArr)
+  // }
 
   return (
     <IssuesBlockTopContainer>
       <Date>
-        <Day>{issuesBlock.blockDate}</Day>
+        {issuesBlockDate}
+        <Day>{issuesBlockDay}</Day>
       </Date>
       {!curDayIssuesArr.length ? (
         <EmptyBlock>All issues were deleted</EmptyBlock>
@@ -114,7 +118,7 @@ const IssuesBlockTop = ({ issuesBlock, issues, postIssue }) => {
             <p> {totalDuration} </p>
             <progress value={value} max={issuesAmount}></progress>
           </TotalHours>
-          <DownloadBtn >
+          <DownloadBtn>
             <img src={dwnldbtn} alt="download" />
           </DownloadBtn>
         </TotalProgress>
@@ -124,7 +128,7 @@ const IssuesBlockTop = ({ issuesBlock, issues, postIssue }) => {
 };
 
 const mapDispatchToProps = {
-  postIssue
-}
+  postIssue,
+};
 
 export default connect(null, mapDispatchToProps)(IssuesBlockTop);

@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import moment from 'moment'
 import React from "react";
 import styled from "styled-components";
 
@@ -62,11 +62,14 @@ const IssueTitle = styled.div`
 
 const IssueInfo = ({ issue }) => {
   const { startTime, endTime, issuename, worklogname } = issue;
+  const started = moment(startTime).format("HH:mm"); 
+  const ended = moment(endTime).format("HH:mm"); 
+  
   const uploaded = 2;
   return (
     <IssueInfoContainer>
       <IssueTime>
-        <p> {startTime} </p> <span> - {endTime} </span>
+        <p> {started} </p> <span> - {ended} </span>
         {/* <IssuesAmount>2</IssuesAmount> */}
       </IssueTime>
       {

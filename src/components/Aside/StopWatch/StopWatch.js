@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components"
-import _ from "lodash"
+// import _ from "lodash"
 import stopbtn from "../../../assets/timer-stop.svg";
 import pausebtn from "../../../assets/timer-pause.svg";
 import startbtn from "../../../assets/timer-start.svg"
@@ -77,7 +77,10 @@ class StopWatch extends Component {
     clearInterval(this.timerID);
     this.setState({isRunning: false})
     this.props.setEndTime()
-    this.props.openModal()
+    if(this.props.duration < 60000) {
+      this.props.openAlert()
+      this.props.openModal()
+    }
   }
 
   handlePauseStartClick = () => {

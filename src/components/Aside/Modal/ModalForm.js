@@ -67,7 +67,7 @@ const ModalForm = ({
     issuenameError: "",
   };
   const [inputState, setInputState] = useState(initialInputState);
-  const { openAlert, closeAlert } = useContext(alertContext);
+  const { closeAlert } = useContext(alertContext);
   // const [timeRangeValues, setTimeRangeValues] = useState({
   //   values: [startTime, endTime],
   // });
@@ -117,7 +117,7 @@ const ModalForm = ({
     const { worklogname, issuename } = inputState;
     // const startTime = timeRangeValues.values[0];
     // const endTime = timeRangeValues.values[1];
-    const date = format(new Date(), "EEE, MMMM dd");
+    const date = format(new Date(), "yyyy-MM-dd");
     const isValid = validate();
     const newIssuesBlockDate = {
       blockDate: date,
@@ -126,22 +126,21 @@ const ModalForm = ({
       worklogname,
       issuename,
       date,
-      startTime: format(startTime, "HH:mm"),
-      endTime: format(endTime, "HH:mm"),
+      startTime,
+      endTime: endTime,
       duration: endTime - startTime,
       id: uuid(),
     };
+    if (newIssue.duration < 60000) {
+      newIssue.endTime = newIssue.startTime + 60000
+      newIssue.duration = 60000;
+    }
     if (isValid) {
       createIssuesBlock(newIssuesBlockDate);
       createIssue(newIssue);
       closeModal();
       closeStopwatch();
       setInputState(initialInputState);
-    }
-    if (newIssue.duration < 60000) {
-      // newIssue.endTime = startTime + 60000
-      newIssue.duration = 60000;
-      openAlert();
     }
   };
 
@@ -176,9 +175,7 @@ const ModalForm = ({
         <Error>{inputState.issuenameError}</Error>
       </InputBox>
       <ModalButtonsContainer>
-        <ModalButton
-          type="submit"
-        >
+        <ModalButton type="submit">
           <img src={acceptbtn} alt="accept" />
         </ModalButton>
         <ModalButton
