@@ -53,7 +53,8 @@
     "devextreme-themebuilder": "20.1-stable",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
-    "jest": "^26.5.2",
-    "jest-enzyme": "^7.1.2"
+    "jest": "24.9.0",
+    "jest-enzyme": "^7.1.2",
+    "jest-styled-components": "^7.0.3"
   }
 }

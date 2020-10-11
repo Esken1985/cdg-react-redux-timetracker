@@ -30,7 +30,7 @@ const HeaderRight = styled.div`
 
 function Header() {
   return (
-    <HeaderWrapper>
+    <HeaderWrapper data-test="headerWrapper">
       <Container>
         <HeaderFlex>
           <HeaderLeft>
