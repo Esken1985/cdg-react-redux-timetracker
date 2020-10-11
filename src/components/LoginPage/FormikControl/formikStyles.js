@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
-export const FormInput = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    flex-direction: column;
-`
+
 export const Error = styled.div`
     color: red;
 `;
