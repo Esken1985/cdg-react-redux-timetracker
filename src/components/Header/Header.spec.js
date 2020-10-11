@@ -14,7 +14,7 @@ describe("Header Component", () => {
     component = setUp();
   });
 
-  it("It should render without errors", () => {
+  it("Should render without errors", () => {
     // const component = shallow(<Header />);
     // const component = setUp();
     // const wrapper = component.find(`[data-test="headerWrapper"]`);

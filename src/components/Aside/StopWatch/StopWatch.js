@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components"
-// import _ from "lodash"
+import PropTypes from "prop-types"
 import stopbtn from "../../../assets/timer-stop.svg";
 import pausebtn from "../../../assets/timer-pause.svg";
 import startbtn from "../../../assets/timer-start.svg"
@@ -125,6 +125,14 @@ class StopWatch extends Component {
       </Stopwatch>
     );
   }
+}
+
+StopWatch.propTypes = {
+  setStartTime: PropTypes.func,
+  setEndTime: PropTypes.func,
+  duration: PropTypes.number,
+  openAlert: PropTypes.func,
+  openModal: PropTypes.func,
 }
 
 
